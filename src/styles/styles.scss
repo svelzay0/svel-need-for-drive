@@ -287,7 +287,7 @@ p {
 .home__burger {
   width: $burger-width;
   height: 100vh;
-  background-color: $main-black;
+  background-color: #111518;
 }
 
 .home__burger__button {
@@ -327,7 +327,7 @@ p {
   top: 8px;
 }
 .home__burger__button_active .home__burger__lines {
-  background-color: $main-black;
+  background-color: #111518;
 }
 
 .home__burger__button_active .home__burger__lines::before {
@@ -627,7 +627,7 @@ p {
   .home__burger__lines,
   .home__burger__lines::before,
   .home__burger__lines::after {
-    background-color: $main-black;
+    background-color: #111518;
   }
   .home__burger__button_active {
     .home__burger__lines::before,
