@@ -355,10 +355,14 @@ p {
   justify-content: center;
 
   &:hover {
-    border: 1px solid $main-green;
-    background-color: $main-green;
+    border: 1px solid $main-light-gray;
     border-radius: 50%;
     color: $main-light-gray;
+    cursor: $main-pointer;
+  }
+
+  &:active {
+    color: $main-green;
     cursor: $main-pointer;
   }
 }
@@ -467,7 +471,7 @@ p {
   -moz-osx-font-smoothing: grayscale;
 
   /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  // text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.3);
 }
 
 .icon-telegram_white:before {
@@ -551,7 +555,6 @@ p {
       margin-top: 16px;
     }
   }
-
   .home__main {
     margin: 0;
     .home__text_bold-black,
@@ -580,6 +583,11 @@ p {
       margin: 0;
       padding-right: 10px;
       color: $main-green;
+
+      &:hover {
+        color: $main-light-gray;
+        cursor: $main-pointer;
+      }
     }
     .home__text_footer {
       margin: 0;
