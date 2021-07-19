@@ -1,7 +1,14 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
-  cursor: url('../assets/main_cursor.svg'), auto;
+  cursor: $main-cursor;
 }
 
 p {
@@ -46,7 +53,7 @@ p {
   font-size: 13px;
   line-height: 15px;
   margin: 0;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   color: $main-gray;
 }
 
@@ -65,7 +72,7 @@ p {
 
   &:hover {
     color: $main-green;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
   }
 }
 .home__button {
@@ -85,7 +92,7 @@ p {
   line-height: 21px;
   margin-top: 60px;
   border: none;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 
   &:hover {
     filter: brightness(0.9);
@@ -166,15 +173,15 @@ p {
   width: 64px !important;
   transition: none !important;
   z-index: 200 !important;
-  cursor: url('../assets/main_pointer.svg'), auto !important;
+  cursor: $main-pointer !important;
 }
 
 .slider-btn-left {
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 }
 
 .slider-btn:hover {
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   background-color: rgba($main-green, 0.2) !important;
 }
 
@@ -185,11 +192,11 @@ p {
   height: 18px !important;
   background: url("~@/assets/prevArrow.svg") no-repeat center !important;
   opacity: 1 !important;
-  cursor: url('../assets/main_pointer.svg'), auto;
   transform: none !important;
   border-left: none !important;
   border-bottom: none !important;
   transition: none !important;
+  cursor: $main-pointer !important;
 }
 
 .slider-icon-right {
@@ -203,6 +210,7 @@ p {
   margin-right: 8px !important;
   margin-bottom: 12px !important;
   background: #eeeeee !important;
+  // cursor: $main-pointer !important; // Здесь данный курсор не попадает ровно по индикаторам, поэтому оставил обычный pointer.
 }
 
 .slider-indicator-active {
@@ -265,7 +273,7 @@ p {
   justify-content: center;
   text-align: center;
   color: $main-light-gray;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 
   &:hover {
     filter: brightness(0.9);
@@ -287,7 +295,7 @@ p {
   left: 18px;
   width: 24px;
   height: 32px;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   z-index: 350;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -351,7 +359,7 @@ p {
     background-color: $main-green;
     border-radius: 50%;
     color: $main-light-gray;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
   }
 }
 .home__burger__nav {
@@ -386,7 +394,7 @@ p {
   font-weight: 500;
   font-size: 32px;
   color: #ffffff;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   z-index: 300;
 
   &:hover {
@@ -410,7 +418,7 @@ p {
 
   &:hover {
     color: $main-green;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
   }
 }
 
