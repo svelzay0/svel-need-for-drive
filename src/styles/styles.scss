@@ -210,7 +210,8 @@ p {
   margin-right: 8px !important;
   margin-bottom: 12px !important;
   background: #eeeeee !important;
-  // cursor: $main-pointer !important; // Здесь данный курсор не попадает ровно по индикаторам, поэтому оставил обычный pointer.
+  // cursor: $main-pointer !important; 
+  // Здесь данный курсор не попадает ровно по индикаторам, поэтому оставил обычный pointer
 }
 
 .slider-indicator-active {
