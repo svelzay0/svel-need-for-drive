@@ -20,9 +20,9 @@
         <p class="home__text_gray">
           Поминутная аренда авто твоего города
         </p>
-        <router-link class="home__button" :to="{name: 'Order'}">
+        <span class="home__button" :to="{name: 'Order'}">
           Забронировать
-        </router-link>
+        </span>
       </main>
       <footer class="home__footer">
         <p class="home__text_footer">

@@ -6,7 +6,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import HomePage from '@/components/HomePage.vue'
 import SliderMenu from "@/components/Slider/SliderMenu";
 
@@ -18,11 +17,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.main__container {
-  display: flex;
-  margin: 0;
-  justify-content: space-between;
-}
-</style>

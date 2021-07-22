@@ -15,6 +15,12 @@ p {
   font-style: normal;
 }
 
+.main__container {
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+}
+
 .home__text_bold-black {
   font-weight: bold;
   font-size: 70px;
@@ -153,8 +159,8 @@ p {
 
 .slider {
   position: relative;
-  width: 50vw !important;
-  height: 100vh !important;
+  min-width: 50vw;
+  min-height: 100vh;
   display: flex;
 }
 
@@ -169,57 +175,54 @@ p {
   background-color: rgba(17, 21, 24, 0.8);
 }
 
-.slider-btn {
-  width: 64px !important;
-  transition: none !important;
-  z-index: 200 !important;
-  cursor: $main-pointer !important;
+#app .slider .slider-btn {
+  min-width: 64px;
+  z-index: 200;
+  cursor: $main-pointer;
 }
 
 .slider-btn-left {
   cursor: $main-pointer;
 }
 
-.slider-btn:hover {
+#app .slider-btn:hover {
   cursor: $main-pointer;
-  background-color: rgba($main-green, 0.2) !important;
+  background-color: rgba($main-green, 0.2);
 }
 
-.slider-icon {
-  z-index: 200 !important;
-  color: white !important;
-  width: 8px !important;
-  height: 18px !important;
-  background: url("~@/assets/prevArrow.svg") no-repeat center !important;
-  opacity: 1 !important;
-  transform: none !important;
-  border-left: none !important;
-  border-bottom: none !important;
-  transition: none !important;
-  cursor: $main-pointer !important;
+#app .slider-icon {
+  z-index: 200;
+  color: white;
+  min-width: 8px;
+  min-height: 18px;
+  background: url("~@/assets/prevArrow.svg") no-repeat center;
+  opacity: 1;
+  transform: none;
+  border-left: none;
+  border-bottom: none;
+  transition: none;
+  cursor: $main-pointer;
 }
 
-.slider-icon-right {
-  transform: rotate(180deg) !important;
+#app .slider-icon-right {
+  transform: rotate(180deg);
 }
 
-.slider-indicator-icon {
-  z-index: 200 !important;
-  width: 8px !important;
-  height: 8px !important;
-  margin-right: 8px !important;
-  margin-bottom: 12px !important;
-  background: #eeeeee !important;
-  // cursor: $main-pointer !important; 
-  // Здесь данный курсор не попадает ровно по индикаторам, поэтому оставил обычный pointer
+#app .slider-indicator-icon {
+  z-index: 200;
+  min-width: 8px;
+  min-height: 8px;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  background: #eeeeee;
 }
 
-.slider-indicator-active {
-  background: #0ec261 !important;
+#app .slider-indicator-active {
+  background: #0ec261;
 }
 
-.slider-indicators {
-  z-index: 200 !important;
+#app .slider-indicators {
+  z-index: 200;
 }
 .slides {
   display: flex;
@@ -287,7 +290,7 @@ p {
 .home__burger {
   width: $burger-width;
   height: 100vh;
-  background-color: #111518;
+  background-color: $main-menu;
 }
 
 .home__burger__button {
@@ -327,7 +330,7 @@ p {
   top: 8px;
 }
 .home__burger__button_active .home__burger__lines {
-  background-color: #111518;
+  background-color: $main-menu;
 }
 
 .home__burger__button_active .home__burger__lines::before {
@@ -491,10 +494,10 @@ p {
     width: calc(60vw - 64px);
   }
   .slider-btn {
-    width: 32px !important;
+    min-width: 32px;
   }
   .slider {
-    width: 40vw !important;
+    min-width: 40vw;
   }
   .slider__content {
     left: 64px;
@@ -627,7 +630,7 @@ p {
   .home__burger__lines,
   .home__burger__lines::before,
   .home__burger__lines::after {
-    background-color: #111518;
+    background-color: $main-menu;
   }
   .home__burger__button_active {
     .home__burger__lines::before,
