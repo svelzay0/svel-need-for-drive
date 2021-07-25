@@ -1,11 +1,24 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
-  cursor: url('../assets/main_cursor.svg'), auto;
+  cursor: $main-cursor;
 }
 
 p {
   font-style: normal;
+}
+
+.main__container {
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
 }
 
 .home__text_bold-black {
@@ -46,7 +59,7 @@ p {
   font-size: 13px;
   line-height: 15px;
   margin: 0;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   color: $main-gray;
 }
 
@@ -65,7 +78,7 @@ p {
 
   &:hover {
     color: $main-green;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
   }
 }
 .home__button {
@@ -85,7 +98,7 @@ p {
   line-height: 21px;
   margin-top: 60px;
   border: none;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 
   &:hover {
     filter: brightness(0.9);
@@ -146,8 +159,8 @@ p {
 
 .slider {
   position: relative;
-  width: 50vw !important;
-  height: 100vh !important;
+  min-width: 50vw;
+  min-height: 100vh;
   display: flex;
 }
 
@@ -162,55 +175,54 @@ p {
   background-color: rgba(17, 21, 24, 0.8);
 }
 
-.slider-btn {
-  width: 64px !important;
-  transition: none !important;
-  z-index: 200 !important;
-  cursor: url('../assets/main_pointer.svg'), auto !important;
+#app .slider .slider-btn {
+  min-width: 64px;
+  z-index: 200;
+  cursor: $main-pointer;
 }
 
 .slider-btn-left {
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 }
 
-.slider-btn:hover {
-  cursor: url('../assets/main_pointer.svg'), auto;
-  background-color: rgba($main-green, 0.2) !important;
+#app .slider-btn:hover {
+  cursor: $main-pointer;
+  background-color: rgba($main-green, 0.2);
 }
 
-.slider-icon {
-  z-index: 200 !important;
-  color: white !important;
-  width: 8px !important;
-  height: 18px !important;
-  background: url("~@/assets/prevArrow.svg") no-repeat center !important;
-  opacity: 1 !important;
-  cursor: url('../assets/main_pointer.svg'), auto;
-  transform: none !important;
-  border-left: none !important;
-  border-bottom: none !important;
-  transition: none !important;
+#app .slider-icon {
+  z-index: 200;
+  color: white;
+  min-width: 8px;
+  min-height: 18px;
+  background: url("~@/assets/prevArrow.svg") no-repeat center;
+  opacity: 1;
+  transform: none;
+  border-left: none;
+  border-bottom: none;
+  transition: none;
+  cursor: $main-pointer;
 }
 
-.slider-icon-right {
-  transform: rotate(180deg) !important;
+#app .slider-icon-right {
+  transform: rotate(180deg);
 }
 
-.slider-indicator-icon {
-  z-index: 200 !important;
-  width: 8px !important;
-  height: 8px !important;
-  margin-right: 8px !important;
-  margin-bottom: 12px !important;
-  background: #eeeeee !important;
+#app .slider-indicator-icon {
+  z-index: 200;
+  min-width: 8px;
+  min-height: 8px;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  background: #eeeeee;
 }
 
-.slider-indicator-active {
-  background: #0ec261 !important;
+#app .slider-indicator-active {
+  background: #0ec261;
 }
 
-.slider-indicators {
-  z-index: 200 !important;
+#app .slider-indicators {
+  z-index: 200;
 }
 .slides {
   display: flex;
@@ -265,7 +277,7 @@ p {
   justify-content: center;
   text-align: center;
   color: $main-light-gray;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
 
   &:hover {
     filter: brightness(0.9);
@@ -278,7 +290,7 @@ p {
 .home__burger {
   width: $burger-width;
   height: 100vh;
-  background-color: $main-black;
+  background-color: $main-menu;
 }
 
 .home__burger__button {
@@ -287,7 +299,7 @@ p {
   left: 18px;
   width: 24px;
   height: 32px;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   z-index: 350;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -318,7 +330,7 @@ p {
   top: 8px;
 }
 .home__burger__button_active .home__burger__lines {
-  background-color: $main-black;
+  background-color: $main-menu;
 }
 
 .home__burger__button_active .home__burger__lines::before {
@@ -347,11 +359,15 @@ p {
   justify-content: center;
 
   &:hover {
-    border: 1px solid $main-green;
-    background-color: $main-green;
+    border: 1px solid $main-light-gray;
     border-radius: 50%;
     color: $main-light-gray;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
+  }
+
+  &:active {
+    color: $main-green;
+    cursor: $main-pointer;
   }
 }
 .home__burger__nav {
@@ -386,7 +402,7 @@ p {
   font-weight: 500;
   font-size: 32px;
   color: #ffffff;
-  cursor: url('../assets/main_pointer.svg'), auto;
+  cursor: $main-pointer;
   z-index: 300;
 
   &:hover {
@@ -410,7 +426,7 @@ p {
 
   &:hover {
     color: $main-green;
-    cursor: url('../assets/main_pointer.svg'), auto;
+    cursor: $main-pointer;
   }
 }
 
@@ -459,7 +475,7 @@ p {
   -moz-osx-font-smoothing: grayscale;
 
   /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  // text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.3);
 }
 
 .icon-telegram_white:before {
@@ -478,10 +494,10 @@ p {
     width: calc(60vw - 64px);
   }
   .slider-btn {
-    width: 32px !important;
+    min-width: 32px;
   }
   .slider {
-    width: 40vw !important;
+    min-width: 40vw;
   }
   .slider__content {
     left: 64px;
@@ -543,7 +559,6 @@ p {
       margin-top: 16px;
     }
   }
-
   .home__main {
     margin: 0;
     .home__text_bold-black,
@@ -572,6 +587,11 @@ p {
       margin: 0;
       padding-right: 10px;
       color: $main-green;
+
+      &:hover {
+        color: $main-light-gray;
+        cursor: $main-pointer;
+      }
     }
     .home__text_footer {
       margin: 0;
@@ -610,7 +630,7 @@ p {
   .home__burger__lines,
   .home__burger__lines::before,
   .home__burger__lines::after {
-    background-color: $main-black;
+    background-color: $main-menu;
   }
   .home__burger__button_active {
     .home__burger__lines::before,

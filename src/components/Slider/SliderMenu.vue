@@ -1,5 +1,9 @@
 <template>
-  <slider :v-model="slides.length" class="slider">
+  <slider
+    animation="fade"
+    :autoplay="true"
+    :v-model="slides.length" class="slider"
+  >
     <slider-item v-for="slide in slides" :key="slide.id">
       <slide :slide="slide" />
     </slider-item>
@@ -14,7 +18,11 @@ import Slide from "@/components/Slider/Slide";
 export default {
   name: "SliderMenu",
   computed: {
-    ...mapGetters("home", ["slides", "isMenuActive"])
+    ...mapGetters("home", 
+    [
+      "slides", 
+      "isMenuActive"
+    ])
   },
   components: {
     Slide
