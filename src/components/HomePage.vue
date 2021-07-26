@@ -1,15 +1,7 @@
 <template>
   <div class="home__container">
     <div class="home__content">
-      <div class="home__header">
-        <p class="home__text_slim-green">
-          Need for drive
-        </p>
-        <p class="home__header_text_gray">
-          <img :src="require('@/assets/main_map.svg')" alt="" />
-          Саранск
-        </p>
-      </div>
+      <header-menu />
       <main class="home__main">
         <h1 class="home__text_bold-black">
           Каршеринг
@@ -20,9 +12,9 @@
         <p class="home__text_gray">
           Поминутная аренда авто твоего города
         </p>
-        <span class="home__button" :to="{name: 'Order'}">
+        <router-link class="home__button" :to="{name: 'Order'}">
           Забронировать
-        </span>
+        </router-link>
       </main>
       <footer class="home__footer">
         <p class="home__text_footer">
@@ -37,7 +29,12 @@
 </template>
 
 <script>
+import HeaderMenu from '@/components/HeaderMenu.vue'
+
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  components: {
+    HeaderMenu
+  }
 }
 </script>

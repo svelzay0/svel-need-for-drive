@@ -12,6 +12,6 @@ export default {
   name: "App",
   components: {
     HomeMenu
-  },
+  }
 };  
 </script>

@@ -2,6 +2,11 @@ export default {
   namespaced: true,
   state: {
     isBurgerActive: false,
+    isPriceSteptVisible: false,
+    windowWidth: null,
+    loading: false,
+    isMapReady: false,
+    tablet: 1023,
     slides: [
       {
         id: 1,
@@ -38,6 +43,40 @@ export default {
         background: "background: linear-gradient(90deg,"+"#281349 0%, #720C7B 100%);"
       }
     ],
+    orderSteps: [
+      {
+        id: 1,
+        name: "Location",
+        tag: "Местоположение",
+        isActive: true,
+        isDisabled: false,
+        buttonText: "Выбрать модель"
+      },
+      {
+        id: 2,
+        name: "Model",
+        tag: "Модель",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Дополнительно"
+      },
+      {
+        id: 3,
+        name: "Additional",
+        tag: "Дополнительно",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Итого"
+      },
+      {
+        id: 4,
+        name: "Total",
+        tag: "Итого",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Заказать"
+      }
+    ],
     menuItems: [
       {
         id: 1,
@@ -66,6 +105,91 @@ export default {
     },
     slides(state) {
       return state.slides;
+    },
+    orderSteps(state) {
+      return state.orderSteps;
+    },
+    currentStep(state) {
+      return state.currentStep
+        ? state.currentStep
+        : state.orderSteps[0];
+    },
+    setCurrentStep(state, payload) {
+      state.orderSteps.map(el => {
+        if (el.name === payload.name) {
+          el.isActive = true;
+          state.currentStep = el;
+          return el;
+        } else {
+          el.isActive = false;
+          return el;
+        }
+      });
+    },
+    setStepStatus(state, payload) {
+      if (payload.isDisabled === false) {
+        if (payload.id === state.orderSteps.length) {
+          state.orderSteps[state.orderSteps.length - 1].isDisabled = payload.isDisabled;
+        } else {
+          state.orderSteps[payload.id].isDisabled = false;
+        }
+      } else {
+        state.orderSteps.map(el => {
+          if (el.id > payload.id) {
+            el.isDisabled = true;
+            return el;
+          }
+        });
+      }
+    },
+    toNextStep(state) {
+      let nextStepId;
+      if (state.currentStep) {
+        nextStepId = state.currentStep.id;
+      } else {
+        nextStepId = state.orderSteps[0].id;
+        state.currentStep = state.orderSteps[0];
+      }
+      if (nextStepId === state.orderSteps.length) {
+        state.isDialogVisible = true;
+      } else {
+        nextStepId += 1;
+        state.currentStep = state.orderSteps.find(el => {
+          if (el.id === nextStepId) {
+            return el;
+          }
+        });
+        state.orderSteps.map(el => {
+          if (el.name === state.currentStep.name) {
+            el.isActive = true;
+            return el;
+          } else {
+            el.isActive = false;
+            return el;
+          }
+        });
+      }
+    },
+    getWindowWidth(state) {
+      return state.windowWidth
+    },
+    isPriceStepVisible(state) {
+      return state.isPriceStepVisible
+    },
+    tablet(state) {
+      return state.tablet
+    },
+    loading(state) {
+      return state.loading;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    isMapReady(state) {
+      return state.isMapReady;
+    },
+    setMapStatus(state, payload) {
+      state.isMapReady = payload;
     }
   },
   mutations: {
