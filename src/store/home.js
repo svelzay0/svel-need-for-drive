@@ -195,6 +195,15 @@ export default {
   mutations: {
     toggleBurgerMenu(state) {
       state.isBurgerActive = !state.isBurgerActive;
+    },
+    setWindowWidth(state, payload) {
+      state.windowWidth = payload
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setMapStatus(state, payload) {
+      state.isMapReady = payload;
     }
   },
   actions: {

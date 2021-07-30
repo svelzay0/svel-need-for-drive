@@ -62,6 +62,9 @@ export default {
     HeaderMenu,
     Location
   },
+  mounted() {
+    this.fetchOrderStatus()
+  },
   methods: {
     showPrice() {
       this.invertPriceVisible();

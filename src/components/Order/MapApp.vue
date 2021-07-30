@@ -5,7 +5,8 @@
       :settings="settings"
       :coords="coords"
       :zoom="zoom"
-      style="height: 100%; width: 100%">
+      style="height: 100%; width: 100%"
+    >
       <ymap-marker
         v-for="point in getPoints"
         :key="point.id"
@@ -62,8 +63,8 @@ export default {
 </script>
 
 <style scoped>
-.location__map__container {
-  width: 100%;
-  height: calc(100vh / 25 * 11);
-}
+  .location__map__container {
+    width: 100%;
+    height: calc(100vh / 25 * 11);
+  }
 </style>

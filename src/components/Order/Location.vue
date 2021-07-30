@@ -22,7 +22,9 @@
           </el-autocomplete>
         </div>
         <div class="location__form_block">
-          <div class="location__autocomplete_label">Пункт Выдачи</div>
+          <div class="location__autocomplete_label">
+            Пункт Выдачи
+          </div>
           <el-autocomplete
             v-model="point"
             class="inline-input"
@@ -115,61 +117,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.location {
-  grid-area: 1 / 1 / 22 / 33;
-  display: grid;
-  grid-template-columns: repeat(32, 1fr);
-  grid-template-rows: repeat(21, 1fr);
-}
-.location__form_container {
-  grid-area: 1 / 3 / 6 / 13;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  min-width: 325px;
-}
-.location__form {
-  margin-top: 16px;
-  height: auto;
-  width: 325px;
-}
-.location__map {
-  grid-area: 6 / 3 / 17 / 26;
-  position: relative;
-}
-.location__autocomplete_label {
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 16px;
-  margin-right: 8px;
-  margin-top: 5px;
-  margin-left: auto;
-}
-.location__form_block {
-  display: flex;
-}
-.inline-input {
-  width: 224px !important;
-  }
-
-// --------------------------------1340------------------------------------
-@media screen and (max-width: $desktop-min) {
-  .location__map {
-    grid-area: 6 / 3 / 17 / 31;
-  }
-}
-// --------------------------------1023------------------------------------
-@media screen and (max-width: $tablet) {
-  .location {
-    grid-area: 1 / 1 / 22 / 45;
-  }
-  .location__map {
-    grid-area: 6 / 2 / 17 / 32;
-  }
-}
-</style>

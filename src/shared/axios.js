@@ -8,6 +8,7 @@ axiosApi.interceptors.request.use(async config => {
     Accept: "application/json"
   };
   config.baseURL = process.env.VUE_APP_API_PROD;
+  console.log(config)
   return config;
 });
 

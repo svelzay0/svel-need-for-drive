@@ -552,9 +552,9 @@ p {
   border: none;
   background-color: inherit;
 }
-.order__step_active {
-  color: $main-green !important;
-  cursor: pointer !important;
+#app .order__step_active {
+  color: $main-green;
+  cursor: pointer;
 }
 .order__step_disabled {
   color: $main-gray;
@@ -584,6 +584,131 @@ p {
   cursor: pointer;
   z-index: 3000;
 }
+.location {
+  grid-area: 1 / 1 / 22 / 33;
+  display: grid;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(21, 1fr);
+}
+.location__form_container {
+  grid-area: 1 / 3 / 6 / 13;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 325px;
+}
+.location__form {
+  margin-top: 16px;
+  height: auto;
+  width: 325px;
+}
+.location__map {
+  grid-area: 6 / 3 / 17 / 26;
+  position: relative;
+}
+.location__autocomplete_label {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  margin-right: 8px;
+  margin-top: 5px;
+  margin-left: auto;
+}
+.location__form_block {
+  display: flex;
+}
+#app .inline-input {
+  width: 224px;
+}
+#app .el-checkbox__label {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+  color: $main-gray;
+  margin-bottom: 8px;
+}
+#app .el-input__inner {
+  border: none;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 0;
+  border-bottom: 1px solid $main-gray;
+  padding-left: 8px;
+  &:focus {
+    border-color: $main-green;
+  }
+}
+#app .el-input__prefix {
+  display: none;
+}
+#app .el-radio {
+  margin-bottom: 8px;
+}
+#app .el-radio__label {
+  margin-right: 16px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+  color: $main-gray;
+  margin-bottom: 8px;
+}
+#app .el-dialog__body {
+  min-width: 300px;
+}
+#app .el-dialog__header {
+  min-width: 300px;
+}
+#app .el-dialog__footer {
+  min-width: 300px;
+}
+#app .el-checkbox__input.is-checked+.el-checkbox__label {
+  color: $main-black;
+}
+#app .el-radio__input.is-checked+.el-radio__label {
+  color: $main-black;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  background: inherit;
+}
+.el-checkbox__inner::after {
+  border: 2px solid $main-black;
+  border-left: 0;
+  border-top: 0;
+  width: 4px;
+  height: 11px;
+  top: -3px;
+  left: 6px;
+}
+.el-radio__inner::after {
+  width: 7px;
+  height: 7px;
+}
+#app .el-dialog__title {
+  font-size: 18px;
+  line-height: 21px;
+}
+#app .el-dialog {
+  border: none;
+  box-shadow: none;
+  background: #ffffff;
+  margin-top: 35vh;
+}
+#app .el-dialog__wrapper {
+  background: rgba(255, 255, 255, 0.9);
+}
+.form__clear {
+  display: block;
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  background: url("~@/assets/location_clear.svg") no-repeat;
+}
 
 // desktop-min (1024px - 1439px)
 @media screen and (max-width: $desktop-min) {
@@ -606,6 +731,9 @@ p {
     transition: 0.4s;
     overflow: hidden;
     width: 60vw;
+  }
+  .location__map {
+    grid-area: 6 / 3 / 17 / 31;
   }
 }
 
@@ -637,6 +765,12 @@ p {
   .order__component_container {
     grid-area: 5 / 1 / 26 / 44;
     grid-template-columns: repeat(44, 1fr);
+  }
+  .location {
+    grid-area: 1 / 1 / 22 / 45;
+  }
+  .location__map {
+    grid-area: 6 / 2 / 17 / 32;
   }
 }
 
