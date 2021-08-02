@@ -9,7 +9,7 @@
             class="inline-input"
             :fetch-suggestions="searchCities"
             value-key="name"
-            placeholder="Начните вводить город..."
+            placeholder="Введите город..."
             @select="selectCity"
           >
             <i
@@ -23,14 +23,14 @@
         </div>
         <div class="location__form_block">
           <div class="location__autocomplete_label">
-            Пункт Выдачи
+            Пункт выдачи
           </div>
           <el-autocomplete
             v-model="point"
             class="inline-input"
             :fetch-suggestions="searchPoints"
             value-key="name"
-            placeholder="Начните вводить пункт выдачи..."
+            placeholder="Введите пункт..."
             @select="selectPoint"
           >
             <i
@@ -43,9 +43,9 @@
           </el-autocomplete>
         </div>
       </form>
-      <span>Выбрать на карте</span>
     </div>
     <div class="location__map">
+      <span v-if="isMapReady && getCity">Выбрать на карте:</span>
       <map-app />
     </div>
   </div>
@@ -69,18 +69,33 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("order", ["getCities", "getPoints", "getCity", "getPoint"])
+    ...mapGetters("order", 
+      [
+        "getCities", 
+        "getPoints", 
+        "getCity", 
+        "getPoint"
+      ]),
+    ...mapGetters("home", ["isMapReady"]),
   },
   watch: {
-    getPoint() {
-      if (this.getPoint) {
-        this.point = this.getPoint.name;
+    'getPoint': function (value) {
+      if (value) {
+        this.point = value.name
       }
     }
   },
   methods: {
-    ...mapActions("order", ["setCity", "setPoint"]),
-    ...mapMutations("order", ["clearCity", "clearPoint"]),
+    ...mapActions("order", 
+      [
+        "setCity", 
+        "setPoint"
+      ]),
+    ...mapMutations("order",
+      [
+        "clearCity", 
+        "clearPoint"
+      ]),
     selectCity(val) {
       this.point = "";
       this.setCity(val);

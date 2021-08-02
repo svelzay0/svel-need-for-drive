@@ -24,7 +24,7 @@ export default {
     this.fetchCity();
     this.setWindowWidth(this.windowWidth);
     window.onresize = () => {
-      this.windowWidth = window.innerWidth
+      this.windowWidth = window.innerWidth;
       this.setWindowWidth(this.windowWidth);
     }
   },

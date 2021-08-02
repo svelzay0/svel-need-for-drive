@@ -38,13 +38,14 @@
         />
       </keep-alive>
     </div>
-    <!-- <price v-show="getWindowWidth > tablet" />
+    <price v-show="getWindowWidth > tablet" />
     <i v-if="getWindowWidth < tablet" class="el-icon-shopping-cart-1 order__button_price" @click="showPrice"/>
     <el-dialog :show-close="false" :visible="isPriceStepVisible">
       <price />
     </el-dialog>
-    <dialog-app />
-    <button-next v-if="getWindowWidth < tablet && !isPriceStepVisible" :button-view="'roundIcon'"/> -->
+    <!-- шаблон подтвержения заказа, в разработке -->
+    <!-- <accept-modal /> --> 
+    <button-next v-if="getWindowWidth < tablet && !isPriceStepVisible" :button-view="'roundIcon'"/>
   </div>  
 </template>
 
@@ -52,15 +53,34 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import HeaderMenu from "@/components/HeaderMenu";
 import Location from '@/components/Order/Location'
+import Price from '@/components/Order/Price'
+import ButtonNext from "@/components/Order/ButtonNext";
+import AcceptModal from "@/components/Order/AcceptModal";
 
 export default {
   name: "Order",
   computed: {
-    ...mapGetters('home', ['orderSteps', 'currentStep', 'getWindowWidth', 'tablet', 'isPriceStepVisible']),
+    ...mapGetters('home', 
+      [
+        'orderSteps',
+        'currentStep',
+        'getWindowWidth',
+        'tablet', 
+        'isPriceStepVisible',
+      ]),
+    ...mapGetters('order', ['getLocationStatus']),  
   },
   components: {
     HeaderMenu,
-    Location
+    Location,
+    Price,
+    ButtonNext,
+    AcceptModal
+  },
+  watch: {
+    getLocationStatus(newVal) {
+      this.setStepStatus(newVal)
+    }
   },
   mounted() {
     this.fetchOrderStatus()
@@ -69,7 +89,12 @@ export default {
     showPrice() {
       this.invertPriceVisible();
     },
-    ...mapMutations('home', ['setStepStatus', 'setCurrentStep', 'invertPriceVisible']),
+    ...mapMutations('home', 
+      [
+        'setStepStatus', 
+        'setCurrentStep', 
+        'invertPriceVisible'
+      ]),
     ...mapActions('total', ['fetchOrderStatus']),
     changeCurrentStep(step) {
       this.setCurrentStep(step)

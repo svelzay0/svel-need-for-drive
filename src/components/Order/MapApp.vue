@@ -47,8 +47,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("order", ["getPoints", "getPoint", "getCity"]),
-    ...mapGetters("home", ["loading", "isMapReady"]),
+    ...mapGetters("order", 
+      [
+        "getPoints", 
+        "getPoint", 
+        "getCity"
+      ]),
+    ...mapGetters("home", 
+      [
+        "loading", 
+        "isMapReady"
+      ]),
     coords() {
       return this.getPoint ? this.getPoint.coords : this.getCity.coords;
     }
@@ -61,10 +70,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-  .location__map__container {
-    width: 100%;
-    height: calc(100vh / 25 * 11);
-  }
-</style>

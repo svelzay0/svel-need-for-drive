@@ -29,11 +29,11 @@ export default {
   },
   mutations: {
     setCities(state, payload) {
-      payload.map(el => {
-        el.coords = [];
-        return el;
-      });
-      state.cities = payload;
+      const cities = payload.map(el => ({
+        ...el,
+        coords: [],
+      }));
+      state.cities = cities;
     },
     setCity(state, payload) {
       state.currentCityPoints = [];
@@ -41,11 +41,11 @@ export default {
       state.currentCity = payload;
     },
     setPoints(state, payload) {
-      payload.map(el => {
-        el.coords = [];
-        return el;
-      });
-      state.currentCityPoints = payload;
+      const points = payload.map(el => ({
+        ...el,
+        coords: [],
+      }));
+      state.currentCityPoints = points;
     },
     setPoint(state, payload) {
       state.currentPoint = payload;
@@ -76,8 +76,7 @@ export default {
             ?.Point;
         payload.coords = Object.values(pointCoords.pos.split(" "));
       } catch (e) {
-        console.log('gg')
-        throw e;
+        this.handleError(e);
       }
     },
     async fetchCityCoords(context, payload) {
@@ -96,9 +95,8 @@ export default {
             ?.Point;
         payload.coords = Object.values(pointCoords.pos.split(" "));
         this.commit("order/setCity", payload);
-      } catch (error) {
-        console.log('gg')
-        throw error;
+      } catch (e) {
+        this.handleError(e);
       }
     },
     async fetchCity(context) {
@@ -109,8 +107,7 @@ export default {
         });
         context.commit("setCities", data.data);
       } catch (e) {
-        console.log('gg')
-        throw e;
+        this.handleError(e);
       }
     },
     async fetchCurrentCityPoints(context, payload) {
@@ -121,8 +118,7 @@ export default {
         });
         context.commit("setCityPoints", data.data);
       } catch (e) {
-        console.log('gg')
-        throw e;
+        this.handleError(e);
       }
     },
     async setCity(context, payload) {

@@ -3,9 +3,10 @@ export default {
   state: {
     isBurgerActive: false,
     isPriceSteptVisible: false,
+    isDialogVisible: false,
+    isMapReady: false,
     windowWidth: null,
     loading: false,
-    isMapReady: false,
     tablet: 1023,
     slides: [
       {
@@ -106,70 +107,16 @@ export default {
     slides(state) {
       return state.slides;
     },
+    slidesLength(state) {
+      return state.slides.length;
+    },
     orderSteps(state) {
       return state.orderSteps;
     },
-    currentStep(state) {
-      return state.currentStep
-        ? state.currentStep
-        : state.orderSteps[0];
+    currentStep({ currentStep, orderSteps }) {
+      return currentStep || orderSteps[0];
     },
-    setCurrentStep(state, payload) {
-      state.orderSteps.map(el => {
-        if (el.name === payload.name) {
-          el.isActive = true;
-          state.currentStep = el;
-          return el;
-        } else {
-          el.isActive = false;
-          return el;
-        }
-      });
-    },
-    setStepStatus(state, payload) {
-      if (payload.isDisabled === false) {
-        if (payload.id === state.orderSteps.length) {
-          state.orderSteps[state.orderSteps.length - 1].isDisabled = payload.isDisabled;
-        } else {
-          state.orderSteps[payload.id].isDisabled = false;
-        }
-      } else {
-        state.orderSteps.map(el => {
-          if (el.id > payload.id) {
-            el.isDisabled = true;
-            return el;
-          }
-        });
-      }
-    },
-    toNextStep(state) {
-      let nextStepId;
-      if (state.currentStep) {
-        nextStepId = state.currentStep.id;
-      } else {
-        nextStepId = state.orderSteps[0].id;
-        state.currentStep = state.orderSteps[0];
-      }
-      if (nextStepId === state.orderSteps.length) {
-        state.isDialogVisible = true;
-      } else {
-        nextStepId += 1;
-        state.currentStep = state.orderSteps.find(el => {
-          if (el.id === nextStepId) {
-            return el;
-          }
-        });
-        state.orderSteps.map(el => {
-          if (el.name === state.currentStep.name) {
-            el.isActive = true;
-            return el;
-          } else {
-            el.isActive = false;
-            return el;
-          }
-        });
-      }
-    },
+    
     getWindowWidth(state) {
       return state.windowWidth
     },
@@ -190,7 +137,10 @@ export default {
     },
     setMapStatus(state, payload) {
       state.isMapReady = payload;
-    }
+    },
+    isDialogVisible(state) {
+      return state.isDialogVisible;
+    },
   },
   mutations: {
     toggleBurgerMenu(state) {
@@ -204,11 +154,73 @@ export default {
     },
     setMapStatus(state, payload) {
       state.isMapReady = payload;
+    },
+    setDialogStatus(state, payload) {
+      state.isDialogVisible = payload;
+    },
+    setCurrentStep(state, payload) {
+      state.orderSteps.map(el => {
+        if (el.name === payload.name) {
+          el.isActive = true;
+          state.currentStep = el;
+        } else {
+          el.isActive = false;
+        }
+        return el;
+      });
+    },
+    setStepStatus(state, payload) {
+      if (payload.isDisabled === false) {
+        if (payload.id === state.orderSteps.length) {
+          state.orderSteps[state.orderSteps.length - 1].isDisabled = payload.isDisabled;
+        } else {
+          state.orderSteps[payload.id].isDisabled = false;
+        }
+      } else {
+        state.orderSteps.map(el => {
+          if (el.id > payload.id) {
+            el.isDisabled = true;
+            return el;
+          }
+        });
+      }
+    },
+    toNextStep(state) {
+      console.log(state)
+      this.loading = true;
+      let nextStepId;
+      if (state.currentStep) {
+        nextStepId = state.currentStep.id;
+      } else {
+        nextStepId = state.orderSteps[0].id;
+        state.currentStep = state.orderSteps[0];
+      }
+      if (nextStepId === state.orderSteps.length) {
+        state.isDialogVisible = true;
+      } else {
+        nextStepId += 1;
+        state.currentStep = state.orderSteps.find(el => {
+          if (el.id === nextStepId) {
+            return el;
+          }
+        });
+        state.orderSteps.map(el => {
+          if (el.name === state.currentStep.name) {
+            el.isActive = true;
+          } else {
+            el.isActive = false;
+          }
+          return el;
+        });
+      }
     }
   },
   actions: {
     toggleBurgerMenu({ commit }) {
       commit("toggleBurgerMenu");
+    },
+    toNextStep({ commit }) {
+      commit("toNextStep");
     }
   }
 };
