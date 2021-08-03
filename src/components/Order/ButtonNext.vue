@@ -46,7 +46,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('home', ['currentStep', 'orderSteps']),
+    ...mapGetters('home', 
+      [
+        'currentStep', 
+        'orderSteps'
+      ]),
     ...mapGetters('total', ['getConfirmedOrder']),
     buttonActive() {
       if (this.currentStep.id === this.orderSteps.length) {
