@@ -8,6 +8,7 @@ export default {
     windowWidth: null,
     loading: false,
     tablet: 1023,
+    currentStep: null,
     slides: [
       {
         id: 1,
@@ -113,10 +114,14 @@ export default {
     orderSteps(state) {
       return state.orderSteps;
     },
-    currentStep({ currentStep, orderSteps }) {
-      return currentStep || orderSteps[0];
+    currentStep(state) {
+      return state.currentStep
+        ? state.currentStep
+        : state.orderSteps[0];
     },
-    
+    // currentStep({ currentStep, orderSteps }) {
+    //   return currentStep || orderSteps[0];
+    // },
     getWindowWidth(state) {
       return state.windowWidth
     },
@@ -129,14 +134,8 @@ export default {
     loading(state) {
       return state.loading;
     },
-    setLoading(state, payload) {
-      state.loading = payload;
-    },
     isMapReady(state) {
       return state.isMapReady;
-    },
-    setMapStatus(state, payload) {
-      state.isMapReady = payload;
     },
     isDialogVisible(state) {
       return state.isDialogVisible;
@@ -186,9 +185,8 @@ export default {
       }
     },
     toNextStep(state) {
-      console.log(state)
-      this.loading = true;
       let nextStepId;
+      this.loading = true
       if (state.currentStep) {
         nextStepId = state.currentStep.id;
       } else {

@@ -56,6 +56,7 @@ import Location from '@/components/Order/Location'
 import Price from '@/components/Order/Price'
 import ButtonNext from "@/components/Order/ButtonNext";
 import AcceptModal from "@/components/Order/AcceptModal";
+import Model from '@/components/Order/Model'
 
 export default {
   name: "Order",
@@ -66,7 +67,7 @@ export default {
         'currentStep',
         'getWindowWidth',
         'tablet', 
-        'isPriceStepVisible',
+        'isPriceStepVisible'
       ]),
     ...mapGetters('order', ['getLocationStatus']),  
   },
@@ -75,7 +76,8 @@ export default {
     Location,
     Price,
     ButtonNext,
-    AcceptModal
+    AcceptModal,
+    Model
   },
   watch: {
     getLocationStatus(newVal) {

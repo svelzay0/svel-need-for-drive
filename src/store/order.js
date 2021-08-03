@@ -62,41 +62,21 @@ export default {
   actions: {
     async fetchPointCoords(context, payload) {
       try {
-        const { data } = await axiosApi({
-          url: process.env.VUE_APP_API_YANDEX_GEO,
-          method: "get",
-          params: {
-            apikey: process.env.VUE_APP_API_YANDEX_KEY,
-            format: "json",
-            geocode: payload.cityId.name + payload.address
-          }
-        });
-        const pointCoords =
-          data.response.GeoObjectCollection?.featureMember?.[0]?.GeoObject
-            ?.Point;
+        const { data } = await axiosApi(request(payload.cityId.name + payload.address));
+        const pointCoords = data.response.GeoObjectCollection?.featureMember?.[0]?.GeoObject?.Point;
         payload.coords = Object.values(pointCoords.pos.split(" "));
       } catch (e) {
-        this.handleError(e);
+        handleError(e);
       }
     },
     async fetchCityCoords(context, payload) {
       try {
-        const { data } = await axiosApi({
-          url: process.env.VUE_APP_API_YANDEX_GEO,
-          method: "get",
-          params: {
-            apikey: process.env.VUE_APP_API_YANDEX_KEY,
-            format: "json",
-            geocode: payload.name
-          }
-        });
-        const pointCoords =
-          data.response.GeoObjectCollection?.featureMember?.[0]?.GeoObject
-            ?.Point;
+        const { data } = await axiosApi(request(payload.name));
+        const pointCoords = data.response.GeoObjectCollection?.featureMember?.[0]?.GeoObject?.Point;
         payload.coords = Object.values(pointCoords.pos.split(" "));
         this.commit("order/setCity", payload);
       } catch (e) {
-        this.handleError(e);
+        handleError(e);
       }
     },
     async fetchCity(context) {
@@ -107,7 +87,7 @@ export default {
         });
         context.commit("setCities", data.data);
       } catch (e) {
-        this.handleError(e);
+        handleError(e);
       }
     },
     async fetchCurrentCityPoints(context, payload) {
@@ -118,7 +98,7 @@ export default {
         });
         context.commit("setCityPoints", data.data);
       } catch (e) {
-        this.handleError(e);
+        handleError(e);
       }
     },
     async setCity(context, payload) {
@@ -147,3 +127,19 @@ export default {
     }
   }
 };
+
+const request = (geoCode) => {
+  return {
+    url: process.env.VUE_APP_API_YANDEX_GEO,
+    method: "get",
+    params: {
+      apikey: process.env.VUE_APP_API_YANDEX_KEY,
+      format: "json",
+      geocode: geoCode
+    }
+  }
+}
+
+const handleError = (e) => {
+  console.log('error: ' + e)
+}

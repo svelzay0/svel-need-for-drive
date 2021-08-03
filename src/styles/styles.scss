@@ -548,13 +548,13 @@ p {
   font-size: 14px;
   line-height: 16px;
   margin-right: 16px;
-  cursor: pointer;
+  cursor: $main-pointer;
   border: none;
   background-color: inherit;
 }
 #app .order__step_active {
   color: $main-green;
-  cursor: pointer;
+  cursor: $main-pointer;
 }
 .order__step_disabled {
   color: $main-gray;
@@ -581,7 +581,7 @@ p {
   color: $main-green;
   bottom: 25px;
   right: 50px;
-  cursor: pointer;
+  cursor: $main-pointer;
   z-index: 3000;
 }
 .location {
@@ -628,7 +628,7 @@ p {
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
-  cursor: pointer;
+  cursor: $main-pointer;
   color: $main-gray;
   margin-bottom: 8px;
 }
@@ -704,7 +704,7 @@ p {
 }
 .form__clear {
   display: block;
-  cursor: pointer;
+  cursor: $main-pointer;
   width: 8px;
   height: 8px;
   margin-top: 8px;
@@ -819,13 +819,13 @@ p {
     filter: brightness(0.8);
   }
 }
-.price__button_cancel {
-  background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%) !important;
+#app .price__button_cancel {
+  background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
 }
-.price__button_disabled {
-  background: $main-light-gray !important;
+#app .price__button_disabled {
+  background: $main-light-gray;
   color: white;
-  cursor: initial !important;
+  cursor: $main-cursor;
 }
 .price__title {
   font-weight: 500;
@@ -883,7 +883,7 @@ p {
   line-height: 21px;
   margin-top: 60px;
   border: none;
-  cursor: pointer;
+  cursor: $main-pointer;
 
   &:hover {
     filter: brightness(0.9);
@@ -892,33 +892,37 @@ p {
     filter: brightness(0.8);
   }
 }
-.price__button_cancel {
-  background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%) !important;
-}
-.price__button_disabled {
-  background: $main-light-gray !important;
-  color: white;
-  cursor: initial !important;
-}
-.button__icon {
+#app .button__icon {
   font-size: 45px;
   position: absolute;
   color: $main-green;
   bottom: 25px;
   right: 105px;
-  cursor: pointer !important;
+  cursor: $main-pointer;
   z-index: 3000;
-  background-color: Transparent !important;
-  background-repeat: no-repeat !important;
+  background-color: Transparent;
+  background-repeat: no-repeat;
   border: none;
   overflow: hidden;
 }
-.button__icon_disabled {
-    color: $main-light-gray !important;
-    cursor: initial !important;
+#app .button__icon_disabled {
+    color: $main-light-gray;
+    cursor: initial;
 }
 .button__icon_cancel {
     color: rgba(123, 12, 59, 1);
+}
+.order__model {
+  grid-area: 1 / 1 / 22 / 33;
+  display: grid;
+  grid-template-columns: repeat(32, 1fr);
+  grid-template-rows: repeat(21, 1fr);
+  position: relative;
+}
+.model__loading {
+  display: flex;
+  align-self: center;
+  justify-self: center;
 }
 
 // desktop-min (1024px - 1439px)
