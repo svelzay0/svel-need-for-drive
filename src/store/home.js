@@ -114,14 +114,9 @@ export default {
     orderSteps(state) {
       return state.orderSteps;
     },
-    currentStep(state) {
-      return state.currentStep
-        ? state.currentStep
-        : state.orderSteps[0];
+    currentStep({ currentStep, orderSteps }) {
+      return currentStep || orderSteps[0];
     },
-    // currentStep({ currentStep, orderSteps }) {
-    //   return currentStep || orderSteps[0];
-    // },
     getWindowWidth(state) {
       return state.windowWidth
     },
