@@ -45,7 +45,12 @@
       </form>
     </div>
     <div class="location__map">
-      <span v-if="isMapReady && getCity">Выбрать на карте:</span>
+      <span 
+        v-if="isMapReady && getCity"
+        class="map__picker"
+      >
+        Выбрать на карте:
+      </span>
       <map-app />
     </div>
   </div>

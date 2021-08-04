@@ -28,7 +28,12 @@ import Loader from "../Loader";
 
 export default {
   name: "MapApp",
-  components: { yandexMap, ymapMarker, Loader },
+  components: 
+  { 
+    yandexMap, 
+    ymapMarker, 
+    Loader 
+  },
   data() {
     return {
       settings: {

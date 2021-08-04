@@ -86,9 +86,10 @@ export default {
     ...mapMutations('home', 
       [
         'toNextStep', 
-        'invertPriceVisible'
+        'setToFalsePriceVisible',
       ]),
     stepOver() {
+      this.setToFalsePriceVisible() 
       this.toNextStep()
     }
   },

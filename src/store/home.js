@@ -2,8 +2,8 @@ export default {
   namespaced: true,
   state: {
     isBurgerActive: false,
-    isPriceSteptVisible: false,
     isDialogVisible: false,
+    isPriceComponentVisible: false,
     isMapReady: false,
     windowWidth: null,
     loading: false,
@@ -120,9 +120,6 @@ export default {
     getWindowWidth(state) {
       return state.windowWidth
     },
-    isPriceStepVisible(state) {
-      return state.isPriceStepVisible
-    },
     tablet(state) {
       return state.tablet
     },
@@ -134,6 +131,9 @@ export default {
     },
     isDialogVisible(state) {
       return state.isDialogVisible;
+    },
+    isPriceComponentVisible(state) {
+      return state.isPriceComponentVisible
     },
   },
   mutations: {
@@ -206,6 +206,12 @@ export default {
           return el;
         });
       }
+    },
+    invertPriceVisible(state) {
+      state.isPriceComponentVisible = !state.isPriceComponentVisible
+    },
+    setToFalsePriceVisible(state) {
+      state.isPriceComponentVisible = false
     }
   },
   actions: {

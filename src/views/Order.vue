@@ -33,19 +33,33 @@
     >
       <keep-alive>
         <component
-          :is="step.name"
-          v-if="currentStep.name === step.name" 
+          v-if="currentStep.name === step.name"
+          :is="step.name"  
         />
       </keep-alive>
     </div>
     <price v-show="getWindowWidth > tablet" />
-    <i v-if="getWindowWidth < tablet" class="el-icon-shopping-cart-1 order__button_price" @click="showPrice"/>
-    <el-dialog :show-close="false" :visible="isPriceStepVisible">
-      <price />
+    <i 
+      v-if="getWindowWidth < tablet" 
+      class="el-icon-shopping-cart-1 order__button_price" 
+      @click="showPrice"
+    />
+    <el-dialog 
+      :show-close="false" 
+      :visible="isPriceComponentVisible"
+    >
+      <price
+        :vision="isPriceComponentVisible"
+        @close="closeModal"    
+      />
     </el-dialog>
     <!-- шаблон подтвержения заказа, в разработке -->
     <!-- <accept-modal /> --> 
-    <button-next v-if="getWindowWidth < tablet && !isPriceStepVisible" :button-view="'roundIcon'"/>
+    <button-next 
+      v-if="getWindowWidth < tablet && 
+      !isPriceComponentVisible" 
+      :button-view="'roundIcon'"
+    />
   </div>  
 </template>
 
@@ -55,7 +69,7 @@ import HeaderMenu from "@/components/HeaderMenu";
 import Location from '@/components/Order/Location'
 import Price from '@/components/Order/Price'
 import ButtonNext from "@/components/Order/ButtonNext";
-import AcceptModal from "@/components/Order/AcceptModal";
+import AcceptModal from "@/components/Order/AcceptModal"; 
 import Model from '@/components/Order/Model'
 
 export default {
@@ -67,7 +81,7 @@ export default {
         'currentStep',
         'getWindowWidth',
         'tablet', 
-        'isPriceStepVisible'
+        'isPriceComponentVisible'
       ]),
     ...mapGetters('order', ['getLocationStatus']),  
   },
@@ -100,6 +114,9 @@ export default {
     ...mapActions('total', ['fetchOrderStatus']),
     changeCurrentStep(step) {
       this.setCurrentStep(step)
+    },
+    closeModal() {
+      this.invertPriceVisible();
     }
   },  
 };
