@@ -2,6 +2,13 @@ export default {
   namespaced: true,
   state: {
     isBurgerActive: false,
+    isDialogVisible: false,
+    isPriceComponentVisible: false,
+    isMapReady: false,
+    windowWidth: null,
+    loading: false,
+    tablet: 1023,
+    currentStep: null,
     slides: [
       {
         id: 1,
@@ -38,6 +45,40 @@ export default {
         background: "background: linear-gradient(90deg,"+"#281349 0%, #720C7B 100%);"
       }
     ],
+    orderSteps: [
+      {
+        id: 1,
+        name: "Location",
+        tag: "Местоположение",
+        isActive: true,
+        isDisabled: false,
+        buttonText: "Выбрать модель"
+      },
+      {
+        id: 2,
+        name: "Model",
+        tag: "Модель",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Дополнительно"
+      },
+      {
+        id: 3,
+        name: "Additional",
+        tag: "Дополнительно",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Итого"
+      },
+      {
+        id: 4,
+        name: "Total",
+        tag: "Итого",
+        isActive: false,
+        isDisabled: true,
+        buttonText: "Заказать"
+      }
+    ],
     menuItems: [
       {
         id: 1,
@@ -66,16 +107,119 @@ export default {
     },
     slides(state) {
       return state.slides;
-    }
+    },
+    slidesLength(state) {
+      return state.slides.length;
+    },
+    orderSteps(state) {
+      return state.orderSteps;
+    },
+    currentStep({ currentStep, orderSteps }) {
+      return currentStep || orderSteps[0];
+    },
+    getWindowWidth(state) {
+      return state.windowWidth
+    },
+    tablet(state) {
+      return state.tablet
+    },
+    loading(state) {
+      return state.loading;
+    },
+    isMapReady(state) {
+      return state.isMapReady;
+    },
+    isDialogVisible(state) {
+      return state.isDialogVisible;
+    },
+    isPriceComponentVisible(state) {
+      return state.isPriceComponentVisible
+    },
   },
   mutations: {
     toggleBurgerMenu(state) {
       state.isBurgerActive = !state.isBurgerActive;
+    },
+    setWindowWidth(state, payload) {
+      state.windowWidth = payload
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setMapStatus(state, payload) {
+      state.isMapReady = payload;
+    },
+    setDialogStatus(state, payload) {
+      state.isDialogVisible = payload;
+    },
+    setCurrentStep(state, payload) {
+      state.orderSteps.map(el => {
+        if (el.name === payload.name) {
+          el.isActive = true;
+          state.currentStep = el;
+        } else {
+          el.isActive = false;
+        }
+        return el;
+      });
+    },
+    setStepStatus(state, payload) {
+      if (payload.isDisabled === false) {
+        if (payload.id === state.orderSteps.length) {
+          state.orderSteps[state.orderSteps.length - 1].isDisabled = payload.isDisabled;
+        } else {
+          state.orderSteps[payload.id].isDisabled = false;
+        }
+      } else {
+        state.orderSteps.map(el => {
+          if (el.id > payload.id) {
+            el.isDisabled = true;
+            return el;
+          }
+        });
+      }
+    },
+    toNextStep(state) {
+      let nextStepId;
+      this.loading = true
+      if (state.currentStep) {
+        nextStepId = state.currentStep.id;
+      } else {
+        nextStepId = state.orderSteps[0].id;
+        state.currentStep = state.orderSteps[0];
+      }
+      if (nextStepId === state.orderSteps.length) {
+        state.isDialogVisible = true;
+      } else {
+        nextStepId += 1;
+        state.currentStep = state.orderSteps.find(el => {
+          if (el.id === nextStepId) {
+            return el;
+          }
+        });
+        state.orderSteps.map(el => {
+          if (el.name === state.currentStep.name) {
+            el.isActive = true;
+          } else {
+            el.isActive = false;
+          }
+          return el;
+        });
+      }
+    },
+    invertPriceVisible(state) {
+      state.isPriceComponentVisible = !state.isPriceComponentVisible
+    },
+    setToFalsePriceVisible(state) {
+      state.isPriceComponentVisible = false
     }
   },
   actions: {
     toggleBurgerMenu({ commit }) {
       commit("toggleBurgerMenu");
+    },
+    toNextStep({ commit }) {
+      commit("toNextStep");
     }
   }
 };

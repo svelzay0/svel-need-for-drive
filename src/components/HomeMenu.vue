@@ -4,22 +4,27 @@
     <div
       class="home__burger__button"
       :class="{ home__burger__button_active: isMenuActive }"
-      @click="toggleBurgerMenu">
+      @click="toggleBurgerMenu"
+    >
       <span class="home__burger__lines" />
     </div>
     <div
       class="home__language-toggle"
       :class="{ 'home__language-toggle-mobile': isMenuActive }"
       @click="languageToggle"
-      v-text="lang" />
+    >
+     {{ lang }}
+    </div>
     <nav
       class="home__burger__nav"
-      :class="{ home__burger__nav__active: isMenuActive }">
+      :class="{ home__burger__nav__active: isMenuActive }"
+    >
       <p
         v-for="menuItem in menuItems"
         :key="menuItem.id"
         class="home__burger__menu_item"
-        @click="toHomePage">
+        @click="toHomePage"
+      >
         {{ menuItem.name.toUpperCase() }}
       </p>
       <div class="home__social_icons">
@@ -42,10 +47,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("home", ["menuItems", "isMenuActive"])
-  },
+    ...mapGetters("home", 
+      [
+        "menuItems", 
+        "isMenuActive"
+      ])
+    },
   methods: {
-    ...mapActions("home", ["toggleBurgerMenu"]),
+    ...mapActions("home", 
+      [
+        "toggleBurgerMenu"
+      ]),
     languageToggle() {
       if (this.lang === "Рус") {
         this.lang = "Eng";
