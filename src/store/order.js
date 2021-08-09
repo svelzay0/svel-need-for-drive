@@ -7,6 +7,7 @@ export default {
     points: [],
     currentCity: null,
     currentPoint: null,
+    isCurrentCityDefined: true,
     currentCityPoints: [],
     id: 1
   },
@@ -16,6 +17,9 @@ export default {
     },
     getAllPoints(state) {
       return state.points;
+    },
+    getBooleanCurrentCityDefined(state) {
+      return state.isCurrentCityDefined;
     },
     getPoints(state) {
       return state.currentCityPoints;
@@ -32,6 +36,9 @@ export default {
     }
   },
   mutations: {
+    setBooleanCurrentCityDefined(state, payload) {
+      state.isCurrentCityDefined = payload;
+    },
     setCities(state, payload) {
       const cities = payload.map(el => ({
         ...el,
@@ -63,7 +70,7 @@ export default {
       state.currentCityPoints = points;
     },
     setPoint(state, payload) {
-      state.currentPoint = payload;
+      state.currentPoint = payload;  
     },
     clearCity(state) {
       state.currentCity = null;
@@ -128,7 +135,7 @@ export default {
         context.commit("setPoints", data.data);
         const pointsWithCoords = context.getters.getPoints.map(el => {
           return context.dispatch("fetchPointCoords", el);
-        });
+        });   
         await Promise.all(pointsWithCoords).then(() => {
           this.commit("home/setLoading", false);
           this.commit("home/setMapStatus", true);
@@ -140,14 +147,14 @@ export default {
     },
     async setPoint(context, payload) {
       if (payload.currentCity === null) {
-        this.commit("home/setLoading", true);
         const city = payload.cities.filter(element => element.name === payload.cityId.name)
         try {
-          context.dispatch('setCity', city[0]);
+          await context.dispatch('setCity', city[0]);
+          await context.dispatch("fetchPointCoords", payload);
         } catch (e) {
           this.commit("home/setLoading", false);
           handleError(e);
-        }
+        }     
       }
       await context.commit("setPoint", payload);
     }

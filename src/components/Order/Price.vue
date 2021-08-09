@@ -8,9 +8,13 @@
     >
     </h3>
     <div class="price__container">
-      <p class="price__title">Ваш заказ:</p>
+      <p class="price__title">
+        Ваш заказ:
+      </p>
       <div v-if="getPoint" class="price__menu_step">
-        <p class="price__menu_step__name">Пункт выдачи</p>
+        <p class="price__menu_step__name">
+          Пункт выдачи
+        </p>
         <div class="price__dots" />
         <div class="price__menu_step__value">
           {{ getPoint.cityId.name }},
