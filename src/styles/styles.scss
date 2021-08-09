@@ -983,10 +983,6 @@ p {
   .location__map {
     grid-area: 6 / 3 / 17 / 31;
   }
-  .location__map__container {
-    width: 100%;
-    height: calc(100vh / 25 * 11);
-  }
 }
 
 // tablet (768px - 1023px)

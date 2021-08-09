@@ -88,13 +88,19 @@ export default {
       if (value) {
         this.point = value.name
       }
+    },
+    'getCity': function (value) {
+      if (value) {
+        this.city = value.name
+      }
     }
   },
   methods: {
     ...mapActions("order", 
       [
         "setCity", 
-        "setPoint"
+        "setPoint",
+        "fetchPoints"
       ]),
     ...mapMutations("order",
       [
@@ -106,6 +112,8 @@ export default {
       this.setCity(val);
     },
     selectPoint(val) {
+      val.currentCity = this.getCity
+      val.cities = this.getCities
       this.setPoint(val);
     },
     clearIconCity() {

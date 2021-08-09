@@ -3,17 +3,17 @@
     <p class="home__text_slim-green">
       Need for drive
     </p>
-    <div class="home__header__city">
-        <img class="home__pic_city" :src="require('@/assets/main_map.svg')" alt="" />
-        <p class="home__text_city">
-          Саранск
-        </p>
-    </div>
+    <city />
   </div>
 </template>
 
 <script>
+import City from '@/components/Service/City.vue'
+
 export default {
-  name: 'HeaderMenu'
+  name: 'HeaderMenu',
+  components: {
+    City
+  }
 }
 </script>
