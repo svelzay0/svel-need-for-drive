@@ -84,6 +84,7 @@ export default {
         'isPriceComponentVisible'
       ]),
     ...mapGetters('order', ['getLocationStatus']),  
+    ...mapGetters('model', ['getModelStatus']),
   },
   components: {
     HeaderMenu,
@@ -95,6 +96,9 @@ export default {
   },
   watch: {
     getLocationStatus(newVal) {
+      this.setStepStatus(newVal)
+    },
+    getModelStatus(newVal) {
       this.setStepStatus(newVal)
     }
   },
