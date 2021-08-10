@@ -22,6 +22,21 @@
           {{ getPoint.address }}
         </div>
       </div>
+      <div v-if="getCar" class="price__menu_step">
+        <p class="price__menu_step__name">Модель</p>
+        <div class="price__dots" />
+        <div class="price__menu_step__value">
+          {{ getCar.name }}
+        </div>
+      </div>
+      <div v-if="getCar" class="price__total">
+        <div>
+          <b>
+            Цена:
+          </b>
+          {{ 'от ' + getCar.priceMin + ' до ' + getCar.priceMax + ' ₽'}}
+        </div>
+      </div>
       <button-next :button-view="'withText'" />
     </div>
   </div>
@@ -51,7 +66,8 @@ export default {
         'getCity', 
         'getPoint', 
         'getPoints'
-      ])
+      ]),
+    ...mapGetters('model', ['getCar'])
   },
 }
 </script>

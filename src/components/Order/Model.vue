@@ -19,12 +19,6 @@
             }"
         @click="selectCar(car)"
       >
-      <!-- :class="{
-              order__step_active: step.isActive,
-              order__step_disabled: step.isDisabled,
-              order__step_finished: !step.isDisabled,
-            }" -->
-      <!-- :class="{ 'model__car_card': isMenuActive }" -->
         <div class="model__car_name">
           {{ getCarName(car) }}
         </div>
@@ -47,7 +41,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-// import { mapGetters, mapActions, mapMutations } from "vuex";
 import Loader from "../Loader";
 
 export default {
@@ -94,7 +87,6 @@ export default {
             "fetchModels", 
             "setCar"
         ]),
-    // ...mapMutations("additional", ["setColor"]),
     imgPath(car) {
       return `${process.env.VUE_APP_API_IMG}${car.thumbnail.path}`;
     },
