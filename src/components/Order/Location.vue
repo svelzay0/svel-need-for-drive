@@ -84,12 +84,12 @@ export default {
     ...mapGetters("home", ["isMapReady"]),
   },
   watch: {
-    'getPoint': function (value) {
+    getPoint: function (value) {
       if (value) {
         this.point = value.name
       }
     },
-    'getCity': function (value) {
+    getCity: function (value) {
       if (value) {
         this.city = value.name
       }

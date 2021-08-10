@@ -19,7 +19,6 @@
     </yandex-map>
     <loader v-if="loading" />
   </div>
-
 </template>
 
 <script>

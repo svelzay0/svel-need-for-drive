@@ -114,7 +114,6 @@ export default {
         const { data } = await axiosApi(ApiRequest("/point"));
         const points = data.data.filter(element => element.cityId !== null);
         context.commit("setAllPoints", points);
-        
       } catch (e) {
         handleError(e);
       }
@@ -135,7 +134,7 @@ export default {
         context.commit("setPoints", data.data);
         const pointsWithCoords = context.getters.getPoints.map(el => {
           return context.dispatch("fetchPointCoords", el);
-        });   
+        });
         await Promise.all(pointsWithCoords).then(() => {
           this.commit("home/setLoading", false);
           this.commit("home/setMapStatus", true);
