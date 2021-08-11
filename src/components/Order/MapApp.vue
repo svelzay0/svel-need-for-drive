@@ -75,3 +75,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.location__map__container {
+  width: 100%;
+  height: calc(100vh / 25 * 11);
+}
+</style>

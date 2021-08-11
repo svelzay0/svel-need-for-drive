@@ -22,6 +22,7 @@ export default {
   },
   mounted() {
     this.fetchCity();
+    this.fetchPoints();
     this.setWindowWidth(this.windowWidth);
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
@@ -29,7 +30,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("order", ["fetchCity"]),
+    ...mapActions("order", 
+      [
+        "fetchCity", 
+        "fetchPoints"
+      ]),
     ...mapMutations('home', ['setWindowWidth'])
   }
 };  
