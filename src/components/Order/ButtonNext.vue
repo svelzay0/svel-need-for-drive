@@ -23,16 +23,14 @@
         v-if="getConfirmedOrder"
         class="el-icon-error button__icon button__icon_cancel"
         @click="reset"
-      >
-      </button>
+      />
       <button
         v-else
         :class="iconClass"
         :disabled="buttonActive"
         class="el-icon-success button__icon"
         @click="stepOver"
-      >
-      </button>
+      />
     </div>
   </div>
 </template>

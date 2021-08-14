@@ -96,7 +96,6 @@ export default {
         : car.name;
     },
     selectCar(car) {
-    //   this.setColor("Любой");
       this.currentCar.id = car.id
       this.setCar(car);
     },
