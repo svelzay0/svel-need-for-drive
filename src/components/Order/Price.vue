@@ -29,12 +29,48 @@
           {{ getCar.name }}
         </div>
       </div>
+      <div v-if="getColor" class="price__menu_step">
+        <p class="price__menu_step__name">Цвет</p>
+        <div class="price__dots" />
+        <div class="price__menu_step__value">
+          {{ getColor }}
+        </div>
+      </div>
+      <div v-if="getRentDuration" class="price__menu_step">
+        <p class="price__menu_step__name">Длительность аренды</p>
+        <div class="price__dots" />
+        <div class="price__menu_step__value">
+          {{ getRentDuration.units }}{{ getRentDuration.name }}
+        </div>
+      </div>
+      <div v-if="getRate" class="price__menu_step">
+        <p class="price__menu_step__name">Тариф</p>
+        <div class="price__dots" />
+        <div class="price__menu_step__value">{{ getRate.rateTypeId.name }}</div>
+      </div>
+      <div v-for="opt in getOptions" :key="opt.name">
+        <div v-if="opt.optValue" class="price__menu_step">
+          <p class="price__menu_step__name">{{ opt.name }}</p>
+          <div class="price__dots" />
+          <div class="price__menu_step__value">Да</div>
+        </div>
+      </div>
       <div v-if="getCar" class="price__total">
-        <div>
-          <b>
-            Цена:
-          </b>
-          {{ 'от ' + getCar.priceMin + ' до ' + getCar.priceMax + ' ₽'}}
+        <div v-if="getPrice && !isPriceValid" class="price__total_error">
+          <b>Цена </b>для Вашей машины должна быть в диапазоне от
+          {{ getCar.priceMin }} ₽ до {{ getCar.priceMax }} ₽. Текущая цена
+          {{ getPrice }} ₽
+        </div>
+        <div v-else-if="getPrice && isPriceValid">
+          <b>Цена:</b>{{ getPrice }} ₽
+        </div>
+        <div v-else>
+          <div>
+            <b>
+              Цена:
+            </b>
+            {{ 'от ' + getCar.priceMin + ' до ' + getCar.priceMax + ' ₽'}}
+          </div>
         </div>
       </div>
       <button-next :button-view="'withText'" />
@@ -67,7 +103,16 @@ export default {
         'getPoint', 
         'getPoints'
       ]),
-    ...mapGetters('model', ['getCar'])
+    ...mapGetters('model', ['getCar']),
+    ...mapGetters('additional', 
+      [
+        'getRentDuration',
+        'getRate',
+        'getOptions',
+        'getPrice',
+        'getColor',
+        'isPriceValid',
+      ])
   },
 }
 </script>

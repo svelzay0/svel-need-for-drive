@@ -65,12 +65,13 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import HeaderMenu from "@/components/HeaderMenu";
+import HeaderMenu from "@/components/HeaderMenu"
 import Location from '@/components/Order/Location'
 import Price from '@/components/Order/Price'
-import ButtonNext from "@/components/Order/ButtonNext";
-import AcceptModal from "@/components/Order/AcceptModal"; 
+import ButtonNext from "@/components/Order/ButtonNext"
+import AcceptModal from "@/components/Order/AcceptModal"
 import Model from '@/components/Order/Model'
+import Additional from '@/components/Order/Additional'
 
 export default {
   name: "Order",
@@ -92,7 +93,8 @@ export default {
     Price,
     ButtonNext,
     AcceptModal,
-    Model
+    Model,
+    Additional
   },
   watch: {
     getLocationStatus(newVal) {
