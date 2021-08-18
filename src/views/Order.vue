@@ -56,8 +56,8 @@
     <!-- шаблон подтвержения заказа, в разработке -->
     <!-- <accept-modal /> -->
     <button-next
-      v-if="getWindowWidth < tablet &&
-      !isPriceComponentVisible"
+      v-if="getWindowWidth < tablet
+      && !isPriceComponentVisible"
       :button-view="'roundIcon'"
     />
   </div>

@@ -54,7 +54,8 @@
             :key="rate.id"
             :label="rate.rateTypeId.name"
             @change="setStoreRate(rate)"
-            >{{ rateRadioLabel(rate) }}
+          >
+            {{ rateRadioLabel(rate) }}
           </el-radio>
         </el-radio-group>
       </div>
@@ -98,9 +99,7 @@ export default {
         }
       },
       optionsDateTo: {
-        disabledDate: el => {
-          return el < this.dateFrom;
-        }
+        disabledDate: el => el < this.dateFrom
       }
     };
   },
@@ -211,44 +210,37 @@ export default {
         } else {
           switch (this.getRate.rateTypeId.unit) {
             case "сутки": {
-              let units = Math.floor(amount / 1000 / 60 / 60 / 24);
-              if (units === 0) {
-                units = 1;
-              }
-              this.rentDuration = { units: units, name: "д" };
-              this.rateTotal = units * this.getRate.price + adds;
+              const dayUnits = Math.floor(amount / 1000 / 60 / 60 / 24) || 1;
+              this.rentDuration = { dayUnits: dayUnits, name: "д" };
+              this.rateTotal = dayUnits * this.getRate.price + adds;
               if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
                 this.setPriceValid(true);
-                break;
               } else {
                 this.setPriceValid(false);
-                break;
               }
-
+              break;
             }
             case "7 дней": {
-              let units = Math.ceil(amount / 1000 / 60 / 60 / 24 / 7);
-              this.rentDuration = { units: units, name: "нед" };
-              this.rateTotal = units * this.getRate.price + adds;
+              const weekUnits = Math.ceil(amount / 1000 / 60 / 60 / 24 / 7);
+              this.rentDuration = { weekUnits: weekUnits, name: "нед" };
+              this.rateTotal = weekUnits * this.getRate.price + adds;
               if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
                 this.setPriceValid(true);
-                break;
               } else {
                 this.setPriceValid(false);
-                break;
               }
+              break;
             }
             case "мин": {
-              const units = Math.floor(amount / 1000 / 60);
-              this.rentDuration = { units: units, name: "мин" };
-              this.rateTotal = units * this.getRate.price + adds;
+              const minUnits = Math.floor(amount / 1000 / 60);
+              this.rentDuration = { minUnits: minUnits, name: "мин" };
+              this.rateTotal = minUnits * this.getRate.price + adds;
               if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
                 this.setPriceValid(true);
-                break;
               } else {
                 this.setPriceValid(false);
-                break;
               }
+              break;
             }
           }
         }

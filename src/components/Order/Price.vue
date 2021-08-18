@@ -2,9 +2,9 @@
   <div class="order__price">
     <h3
       v-if="vision"
+      v-html="closeBtn"
       class="close__btn"
       @click="$emit('close')"
-      v-html="closeBtn"
     >
     </h3>
     <div class="price__container">
