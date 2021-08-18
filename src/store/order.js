@@ -12,7 +12,8 @@ export default {
     id: 1
   },
   getters: {
-    getCities(state) {
+    getCities(state)
+    {
       return state.cities;
     },
     getAllPoints(state) {
@@ -70,7 +71,7 @@ export default {
       state.currentCityPoints = points;
     },
     setPoint(state, payload) {
-      state.currentPoint = payload;  
+      state.currentPoint = payload;
     },
     clearCity(state) {
       state.currentCity = null;
@@ -153,7 +154,7 @@ export default {
         } catch (e) {
           this.commit("home/setLoading", false);
           handleError(e);
-        }     
+        }
       }
       await context.commit("setPoint", payload);
     }
@@ -175,7 +176,7 @@ const YandexMapsRequest = (geoCode) => {
 const ApiRequest = (url) => {
   return {
     url: url,
-    method: "get"    
+    method: "get"
   }
 }
 

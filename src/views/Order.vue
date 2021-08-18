@@ -1,6 +1,6 @@
 <template>
   <div class="order">
-    <div class="order__header">  
+    <div class="order__header">
       <header-menu />
     </div>
     <nav class="order__nav">
@@ -25,7 +25,7 @@
           <div class="order__arrow" />
         </div>
       </div>
-    </nav> 
+    </nav>
     <div
       v-for="step of orderSteps"
       :key="step.id"
@@ -34,57 +34,60 @@
       <keep-alive>
         <component
           v-if="currentStep.name === step.name"
-          :is="step.name"  
+          :is="step.name"
         />
       </keep-alive>
     </div>
     <price v-show="getWindowWidth > tablet" />
-    <i 
-      v-if="getWindowWidth < tablet" 
-      class="el-icon-shopping-cart-1 order__button_price" 
+    <i
+      v-if="getWindowWidth < tablet"
+      class="el-icon-shopping-cart-1 order__button_price"
       @click="showPrice"
     />
-    <el-dialog 
-      :show-close="false" 
+    <el-dialog
+      :show-close="false"
       :visible="isPriceComponentVisible"
     >
       <price
         :vision="isPriceComponentVisible"
-        @close="closeModal"    
+        @close="closeModal"
       />
     </el-dialog>
     <!-- шаблон подтвержения заказа, в разработке -->
-    <!-- <accept-modal /> --> 
-    <button-next 
-      v-if="getWindowWidth < tablet && 
-      !isPriceComponentVisible" 
+    <!-- <accept-modal /> -->
+    <button-next
+      v-if="getWindowWidth < tablet &&
+      !isPriceComponentVisible"
       :button-view="'roundIcon'"
     />
-  </div>  
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import HeaderMenu from "@/components/HeaderMenu";
+import HeaderMenu from "@/components/HeaderMenu"
 import Location from '@/components/Order/Location'
 import Price from '@/components/Order/Price'
-import ButtonNext from "@/components/Order/ButtonNext";
-import AcceptModal from "@/components/Order/AcceptModal"; 
+import ButtonNext from "@/components/Order/ButtonNext"
+import AcceptModal from "@/components/Order/AcceptModal"
 import Model from '@/components/Order/Model'
+import Additional from '@/components/Order/Additional'
+import Total from '@/components/Order/Total'
 
 export default {
   name: "Order",
   computed: {
-    ...mapGetters('home', 
+    ...mapGetters('home',
       [
         'orderSteps',
         'currentStep',
         'getWindowWidth',
-        'tablet', 
+        'tablet',
         'isPriceComponentVisible'
       ]),
-    ...mapGetters('order', ['getLocationStatus']),  
+    ...mapGetters('order', ['getLocationStatus']),
     ...mapGetters('model', ['getModelStatus']),
+    ...mapGetters('additional', ['getAdditionalStatus'])
   },
   components: {
     HeaderMenu,
@@ -92,13 +95,18 @@ export default {
     Price,
     ButtonNext,
     AcceptModal,
-    Model
+    Model,
+    Additional,
+    Total
   },
   watch: {
     getLocationStatus(newVal) {
       this.setStepStatus(newVal)
     },
     getModelStatus(newVal) {
+      this.setStepStatus(newVal)
+    },
+    getAdditionalStatus(newVal) {
       this.setStepStatus(newVal)
     }
   },
@@ -109,10 +117,10 @@ export default {
     showPrice() {
       this.invertPriceVisible();
     },
-    ...mapMutations('home', 
+    ...mapMutations('home',
       [
-        'setStepStatus', 
-        'setCurrentStep', 
+        'setStepStatus',
+        'setCurrentStep',
         'invertPriceVisible'
       ]),
     ...mapActions('total', ['fetchOrderStatus']),
@@ -122,6 +130,6 @@ export default {
     closeModal() {
       this.invertPriceVisible();
     }
-  },  
+  },
 };
 </script>

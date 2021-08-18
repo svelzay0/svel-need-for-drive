@@ -57,7 +57,7 @@ export default {
         this.commit("home/setLoading", false);
       } catch (e) {
         this.commit("home/setLoading", false);
-        throw e;
+        handleError(e);
       }
     },
     setCar({ commit }, payload) {
@@ -65,3 +65,7 @@ export default {
     }
   }
 };
+
+const handleError = (e) => {
+  console.log('error: ' + e)
+}
