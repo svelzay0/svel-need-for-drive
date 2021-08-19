@@ -5,7 +5,7 @@
         <el-radio
           v-for="cat in getCarCategory"
           :key="cat"
-          :label="cat" 
+          :label="cat"
         />
       </el-radio-group>
     </div>
@@ -29,7 +29,7 @@
           class="model__car_image"
           :src="imgPath(car)"
           alt=""
-          @error="defaultImage" 
+          @error="defaultImage"
         />
       </div>
     </div>
@@ -56,17 +56,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("model", 
+    ...mapGetters("model",
         [
-            "getCars", 
-            "getCarCategory", 
+            "getCars",
+            "getCarCategory",
             "getCar"
         ]),
     ...mapGetters("home", ["loading"]),
     filteredCars() {
       if (this.radioSelected === "Все модели") {
         return this.getCars;
-      } 
+      }
       else {
         return this.getCars.filter(el => {
           if (el.categoryId != null) {
@@ -82,9 +82,9 @@ export default {
     this.fetchModels();
   },
   methods: {
-    ...mapActions("model", 
+    ...mapActions("model",
         [
-            "fetchModels", 
+            "fetchModels",
             "setCar"
         ]),
     imgPath(car) {

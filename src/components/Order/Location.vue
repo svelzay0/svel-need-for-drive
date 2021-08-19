@@ -45,7 +45,7 @@
       </form>
     </div>
     <div class="location__map">
-      <span 
+      <span
         v-if="isMapReady && getCity"
         class="map__picker"
       >
@@ -74,11 +74,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("order", 
+    ...mapGetters("order",
       [
-        "getCities", 
-        "getPoints", 
-        "getCity", 
+        "getCities",
+        "getPoints",
+        "getCity",
         "getPoint"
       ]),
     ...mapGetters("home", ["isMapReady"]),
@@ -96,15 +96,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions("order", 
+    ...mapActions("order",
       [
-        "setCity", 
+        "setCity",
         "setPoint",
         "fetchPoints"
       ]),
     ...mapMutations("order",
       [
-        "clearCity", 
+        "clearCity",
         "clearPoint"
       ]),
     selectCity(val) {

@@ -19,9 +19,9 @@ import Slide from "@/components/Slider/Slide";
 export default {
   name: "SliderMenu",
   computed: {
-    ...mapGetters("home", 
+    ...mapGetters("home",
       [
-        "slides", 
+        "slides",
         "slidesLength",
         "isMenuActive"
       ]),

@@ -1,4 +1,5 @@
 import axiosApi from "../shared/axios";
+import handleError from "../shared/error";
 
 export default {
   namespaced: true,
@@ -37,6 +38,11 @@ export default {
       state.category = cats;
     },
     setCar(state, payload) {
+      if (payload.priceMin > payload.priceMax) {
+        const priceMax = payload.priceMin
+        payload.priceMin = payload.priceMax
+        payload.priceMax = priceMax
+      }
       if (payload.colors.includes("Любой")) {
         state.car = payload;
       } else {
@@ -65,7 +71,3 @@ export default {
     }
   }
 };
-
-const handleError = (e) => {
-  console.log('error: ' + e)
-}

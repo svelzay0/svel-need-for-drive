@@ -61,11 +61,7 @@
       </div>
       <div class="additional__form_block">
         <p class="additional__label">Доп услуги</p>
-        <el-checkbox-group
-          v-model="addOptions"
-          class="additional__checkbox"
-          text-color="#ffffff"
-        >
+        <el-checkbox-group v-model="addOptions">
           <el-checkbox
             v-for="opt in getOptions"
             :key="opt.name"
@@ -94,9 +90,7 @@ export default {
       dateFrom: "",
       defaultColor: "Любой",
       optionsDateFrom: {
-        disabledDate: el => {
-          return el < new Date().setHours(0, 0, 0, 0);
-        }
+        disabledDate: el => el < new Date().setHours(0, 0, 0, 0)
       },
       optionsDateTo: {
         disabledDate: el => el < this.dateFrom
@@ -137,7 +131,7 @@ export default {
     this.fetchRates();
   },
   methods: {
-    ...mapActions("additional", 
+    ...mapActions("additional",
       [
         "setPrice",
         "fetchRates",
@@ -147,9 +141,9 @@ export default {
       ]),
     ...mapMutations("additional",
       [
-        "setRentDuration", 
-        "setOption", 
-        "setRate", 
+        "setRentDuration",
+        "setOption",
+        "setRate",
         "setPriceValid",
         "setDefaultColor"
       ]),
@@ -193,7 +187,7 @@ export default {
       return `${rate.rateTypeId.name}, ${rate.price} ₽/${rate.rateTypeId.unit}`;
     },
     optionCheckboxLabel(opt) {
-      return `${opt.name},${opt.price}₽`;
+      return `${opt.name}, ${opt.price}₽`;
     },
     calculateRent() {
       let adds = 0;
@@ -211,39 +205,30 @@ export default {
           switch (this.getRate.rateTypeId.unit) {
             case "сутки": {
               const dayUnits = Math.floor(amount / 1000 / 60 / 60 / 24) || 1;
-              this.rentDuration = { dayUnits: dayUnits, name: "д" };
-              this.rateTotal = dayUnits * this.getRate.price + adds;
-              if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
-                this.setPriceValid(true);
-              } else {
-                this.setPriceValid(false);
-              }
+              this.setPriceValidBoolean(dayUnits, "д", adds);
               break;
             }
             case "7 дней": {
               const weekUnits = Math.ceil(amount / 1000 / 60 / 60 / 24 / 7);
-              this.rentDuration = { weekUnits: weekUnits, name: "нед" };
-              this.rateTotal = weekUnits * this.getRate.price + adds;
-              if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
-                this.setPriceValid(true);
-              } else {
-                this.setPriceValid(false);
-              }
+              this.setPriceValidBoolean(weekUnits, "нед", adds);
               break;
             }
             case "мин": {
               const minUnits = Math.floor(amount / 1000 / 60);
-              this.rentDuration = { minUnits: minUnits, name: "мин" };
-              this.rateTotal = minUnits * this.getRate.price + adds;
-              if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
-                this.setPriceValid(true);
-              } else {
-                this.setPriceValid(false);
-              }
+              this.setPriceValidBoolean(minUnits, "мин", adds);
               break;
             }
           }
         }
+      }
+    },
+    setPriceValidBoolean (someUnits, prefix, adds) {
+      this.rentDuration = { units: someUnits, name: prefix };
+      this.rateTotal = someUnits * this.getRate.price + adds;
+      if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
+        this.setPriceValid(true);
+      } else {
+        this.setPriceValid(false);
       }
     }
   }

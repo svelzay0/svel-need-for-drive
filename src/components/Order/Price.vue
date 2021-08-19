@@ -66,12 +66,20 @@
         <div v-else-if="getPrice && isPriceValid">
           <b>Цена: </b>{{ getPrice }} ₽
         </div>
+        <div v-else-if="getCar.priceMin === getCar.priceMax">
+          <div>
+            <b>
+              Цена:
+            </b>
+            {{ getCar.priceMin }} ₽.
+          </div>
+        </div>
         <div v-else>
           <div>
             <b>
               Цена:
             </b>
-            {{ 'от ' + getCar.priceMin + ' до ' + getCar.priceMax + ' ₽'}}
+            от {{ getCar.priceMin }} ₽ до {{ getCar.priceMax }} ₽.
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import axiosApi from "../shared/axios";
+import handleError from "../shared/error";
 
 export default {
   namespaced: true,
@@ -178,8 +179,4 @@ const ApiRequest = (url) => {
     url: url,
     method: "get"
   }
-}
-
-const handleError = (e) => {
-  console.log('error: ' + e)
 }

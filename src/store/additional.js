@@ -1,4 +1,5 @@
 import axiosApi from "../shared/axios";
+import handleError from "../shared/error";
 
 export default {
   namespaced: true,
@@ -103,12 +104,12 @@ export default {
       state.rate = payload;
     },
     setOption(state, payload) {
-      state.addOptions.map(el => {
-        payload.includes(el.name)
+      state.addOptions.map(el => ({
+        ...el,
+        optValue: payload.includes(el.name)
           ? (el.optValue = true)
-          : (el.optValue = false);
-        return el;
-      });
+          : (el.optValue = false)
+      }));
       this.commit("total/setOptions", state.addOptions);
     }
   },
@@ -141,7 +142,3 @@ export default {
     }
   }
 };
-
-const handleError = (e) => {
-  console.log('error: ' + e)
-}

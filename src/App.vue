@@ -30,12 +30,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions("order", 
+    ...mapActions("order",
       [
-        "fetchCity", 
+        "fetchCity",
         "fetchPoints"
       ]),
     ...mapMutations('home', ['setWindowWidth'])
   }
-};  
+};
 </script>
