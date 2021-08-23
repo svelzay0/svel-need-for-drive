@@ -39,9 +39,9 @@ export default {
     },
     setCar(state, payload) {
       if (payload.priceMin > payload.priceMax) {
-        const priceMax = payload.priceMin
-        payload.priceMin = payload.priceMax
-        payload.priceMax = priceMax
+        const priceMax = payload.priceMin;
+        payload.priceMin = payload.priceMax;
+        payload.priceMax = priceMax;
       }
       if (payload.colors.includes("Любой")) {
         state.car = payload;

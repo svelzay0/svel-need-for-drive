@@ -190,46 +190,40 @@ export default {
       return `${opt.name}, ${opt.price}₽`;
     },
     calculateRent() {
-      let adds = 0;
-      this.getOptions.filter(el => {
-        if (el.optValue === true) {
-          adds += el.price;
-        }
-      });
-      if (this.dateFrom !== "" && this.dateTo !== "") {
+      let adds = this.getOptions.reduce((sum, f) => f.optValue === true ? sum + f.price : sum, 0);
+      if (this.dateFrom && this.dateTo) {
         const amount = this.dateTo - this.dateFrom;
-        if (amount < 0) {
-          this.rateTotal = null;
-          this.rentDuration = null;
-        } else {
-          switch (this.getRate.rateTypeId.unit) {
-            case "сутки": {
-              const dayUnits = Math.floor(amount / 1000 / 60 / 60 / 24) || 1;
-              this.setPriceValidBoolean(dayUnits, "д", adds);
-              break;
-            }
-            case "7 дней": {
-              const weekUnits = Math.ceil(amount / 1000 / 60 / 60 / 24 / 7);
-              this.setPriceValidBoolean(weekUnits, "нед", adds);
-              break;
-            }
-            case "мин": {
-              const minUnits = Math.floor(amount / 1000 / 60);
-              this.setPriceValidBoolean(minUnits, "мин", adds);
-              break;
-            }
-          }
+        return amount < 0 ? this.zeroRateAndRent() : this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+      }
+    },
+    zeroRateAndRent () {
+      this.rateTotal = null;
+      this.rentDuration = null;
+    },
+    fillableRateAndRent (amount, unit, adds) {
+      switch (unit) {
+        case "сутки": {
+          const dayUnits = Math.floor(amount / 1000 / 60 / 60 / 24) || 1;
+          this.setPriceValidBoolean(dayUnits, "д", adds);
+          break;
+        }
+        case "7 дней": {
+          const weekUnits = Math.ceil(amount / 1000 / 60 / 60 / 24 / 7);
+          this.setPriceValidBoolean(weekUnits, "нед", adds);
+          break;
+        }
+        case "мин": {
+          const minUnits = Math.floor(amount / 1000 / 60);
+          this.setPriceValidBoolean(minUnits, "мин", adds);
+          break;
         }
       }
     },
     setPriceValidBoolean (someUnits, prefix, adds) {
       this.rentDuration = { units: someUnits, name: prefix };
       this.rateTotal = someUnits * this.getRate.price + adds;
-      if (this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax) {
-        this.setPriceValid(true);
-      } else {
-        this.setPriceValid(false);
-      }
+      const priceValid = this.getCar.priceMin <= this.rateTotal && this.rateTotal <= this.getCar.priceMax;
+      this.setPriceValid(priceValid);
     }
   }
 };
