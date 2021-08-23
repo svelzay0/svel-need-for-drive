@@ -220,6 +220,9 @@ export default {
     },
     toNextStep({ commit }) {
       commit("toNextStep");
+    },
+    setDialogStatus({ commit }, payload) {
+      commit("setDialogStatus", payload);
     }
   }
 };

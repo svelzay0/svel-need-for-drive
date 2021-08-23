@@ -4,7 +4,18 @@
       <header-menu />
     </div>
     <nav class="order__nav">
-      <div class="order__steps">
+      <div
+        v-if="getConfirmedOrder"
+        class="order__finish"
+      >
+        <p class="order__order__number">
+          Заказ номер {{ getConfirmedOrder.id }}
+        </p>
+      </div>
+      <div
+        v-else
+        class="order__steps"
+      >
         <div
           v-for="step in orderSteps"
           :key="step.id"
@@ -53,8 +64,7 @@
         @close="closeModal"
       />
     </el-dialog>
-    <!-- шаблон подтвержения заказа, в разработке -->
-    <!-- <accept-modal /> -->
+    <accept-modal />
     <button-next
       v-if="getWindowWidth < tablet
       && !isPriceComponentVisible"
@@ -87,7 +97,8 @@ export default {
       ]),
     ...mapGetters('order', ['getLocationStatus']),
     ...mapGetters('model', ['getModelStatus']),
-    ...mapGetters('additional', ['getAdditionalStatus'])
+    ...mapGetters('additional', ['getAdditionalStatus']),
+    ...mapGetters('total', ['getConfirmedOrder']),
   },
   components: {
     HeaderMenu,
