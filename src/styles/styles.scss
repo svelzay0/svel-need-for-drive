@@ -727,13 +727,16 @@ p {
   font-size: 18px !important;
   line-height: 21px !important;
 }
-.el-dialog {
-  border: none !important;
-  box-shadow: none !important;
-  background: #ffffff !important;
+.el-dialog--center {
   margin-top: 35vh !important;
 }
-.el-dialog__wrapper {
+#app .el-dialog {
+  border: none;
+  box-shadow: none;
+  background: #ffffff;
+}
+#app .el-dialog__wrapper {
+  overflow: auto;
   background: rgba(255, 255, 255, 0.9);
 }
 .form__clear {
@@ -1508,13 +1511,29 @@ p {
     top: 20% !important;
     left: 5% !important;
   }
-  .el-dialog {
-    width: 100% !important;
+  #app .el-dialog {
+    width: 100%;
   }
   .order__finish {
     padding-left: 28px;
   }
   .order__steps {
     padding-left: 28px;
+  }
+  #app .el-dialog__wrapper {
+    padding-bottom: 50px;
+  }
+  #app .el-dialog__footer {
+    min-width: 300px;
+  }
+  #app .el-dialog__footer {
+    min-width: 300px;
+  }
+  .el-dialog--center {
+    min-width: 35vh !important;
+  }
+  .order__steps {
+    display: block;
+    width: 300px;
   }
 }

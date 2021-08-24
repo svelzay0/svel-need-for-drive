@@ -9,7 +9,7 @@
         />
       </el-radio-group>
     </div>
-    <div class="model__container">
+    <div class="model__container" id="infinite-list">
       <div
         v-for="car in filteredCars"
         :key="car.id"
@@ -42,6 +42,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Loader from "../Loader";
+import { debounce } from "debounce";
 
 export default {
   name: "Model",
@@ -52,7 +53,9 @@ export default {
       imgDefPath: require('@/assets/default_car.jpg'),
       currentCar: {
           id: null
-      }
+      },
+      nextItem: 1,
+      items: []
     };
   },
   computed: {
@@ -60,7 +63,8 @@ export default {
         [
             "getCars",
             "getCarCategory",
-            "getCar"
+            "getCar",
+            "getOffset"
         ]),
     ...mapGetters("home", ["loading"]),
     filteredCars() {
@@ -79,13 +83,19 @@ export default {
     }
   },
   mounted() {
-    this.fetchModels();
+    const element = document.querySelector('#infinite-list');
+    element.addEventListener('scroll', e => {
+      if(element.scrollTop + element.clientHeight >= element.scrollHeight - 1) {
+        debounce(this.loadMore(e), 500);
+      }
+    });
+    debounce(this.loadMore(), 500);
   },
   methods: {
     ...mapActions("model",
         [
-            "fetchModels",
-            "setCar"
+          "fetchModels",
+          "setCar"
         ]),
     imgPath(car) {
       return `${process.env.VUE_APP_API_IMG}${car.thumbnail.path}`;
@@ -101,6 +111,10 @@ export default {
     },
     defaultImage(e) {
       e.target.src = this.imgDefPath;
+    },
+    loadMore() {
+      console.log("Adding 10 more data results");
+      this.fetchModels();
     }
   }
 };

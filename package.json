@@ -9,10 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "beautify-scrollbar": "^1.0.8",
     "core-js": "^3.6.5",
+    "debounce": "^1.2.1",
     "element-ui": "^2.15.3",
     "vue": "^2.6.11",
     "vue-easy-slider": "^5.3.4",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.2.0",
     "vue-yandex-maps": "^0.10.12",
     "vuex": "^3.4.0"
