@@ -190,7 +190,7 @@ export default {
       return `${opt.name}, ${opt.price}₽`;
     },
     calculateRent() {
-      let adds = this.getOptions.reduce((sum, f) => f.optValue === true ? sum + f.price : sum, 0);
+      let adds = this.getOptions.reduce((sum, element) => element.optValue ? sum + element.price : sum, 0);
       if (this.dateFrom && this.dateTo) {
         const amount = this.dateTo - this.dateFrom;
         if (amount < 0) {
