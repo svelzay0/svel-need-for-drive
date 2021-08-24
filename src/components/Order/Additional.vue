@@ -193,12 +193,12 @@ export default {
       let adds = this.getOptions.reduce((sum, f) => f.optValue === true ? sum + f.price : sum, 0);
       if (this.dateFrom && this.dateTo) {
         const amount = this.dateTo - this.dateFrom;
-        return amount < 0 ? this.zeroRateAndRent() : this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        if (amount < 0) {
+          this.rateTotal = null;
+          this.rentDuration = null;
+        }
+        else return this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
       }
-    },
-    zeroRateAndRent () {
-      this.rateTotal = null;
-      this.rentDuration = null;
     },
     fillableRateAndRent (amount, unit, adds) {
       switch (unit) {
