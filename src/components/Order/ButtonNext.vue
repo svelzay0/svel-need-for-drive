@@ -46,9 +46,9 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('home', 
+    ...mapGetters('home',
       [
-        'currentStep', 
+        'currentStep',
         'orderSteps'
       ]),
     ...mapGetters('total', ['getConfirmedOrder']),
@@ -60,7 +60,7 @@ export default {
       }
     },
     buttonClass() {
-      if (this.currentStep.id === this.orderSteps.length) {  
+      if (this.currentStep.id === this.orderSteps.length) {
         return {
           price__button_disabled: this.currentStep.isDisabled,
         }
@@ -83,13 +83,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('home', 
+    ...mapMutations('home',
       [
-        'toNextStep', 
+        'toNextStep',
         'setToFalsePriceVisible',
       ]),
     stepOver() {
-      this.setToFalsePriceVisible() 
+      this.setToFalsePriceVisible()
       this.toNextStep()
     }
   },

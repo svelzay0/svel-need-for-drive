@@ -28,11 +28,11 @@ import Loader from "../Loader";
 
 export default {
   name: "MapApp",
-  components: 
-  { 
-    yandexMap, 
-    ymapMarker, 
-    Loader 
+  components:
+  {
+    yandexMap,
+    ymapMarker,
+    Loader
   },
   data() {
     return {
@@ -52,15 +52,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("order", 
+    ...mapGetters("order",
       [
-        "getPoints", 
-        "getPoint", 
+        "getPoints",
+        "getPoint",
         "getCity"
       ]),
-    ...mapGetters("home", 
+    ...mapGetters("home",
       [
-        "loading", 
+        "loading",
         "isMapReady"
       ]),
     coords() {

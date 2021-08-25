@@ -47,14 +47,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("home", 
+    ...mapGetters("home",
       [
-        "menuItems", 
+        "menuItems",
         "isMenuActive"
       ])
     },
   methods: {
-    ...mapActions("home", 
+    ...mapActions("home",
       [
         "toggleBurgerMenu"
       ]),

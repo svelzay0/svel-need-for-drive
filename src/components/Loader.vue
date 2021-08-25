@@ -9,7 +9,7 @@
           r="20"
           fill="none"
           stroke-width="2"
-          stroke-miterlimit="10" 
+          stroke-miterlimit="10"
         />
       </svg>
     </div>
