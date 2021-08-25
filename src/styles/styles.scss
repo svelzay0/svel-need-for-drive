@@ -550,6 +550,7 @@ p {
 .order__additional {
   grid-area: 1 / 1 / 22 / 33;
   display: grid;
+  overflow: auto;
   grid-template-columns: repeat(32, 1fr);
   grid-template-rows: repeat(21, 1fr);
 }

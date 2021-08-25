@@ -113,7 +113,6 @@ export default {
       e.target.src = this.imgDefPath;
     },
     loadMore() {
-      console.log("Adding 10 more data results");
       this.fetchModels();
     }
   }
