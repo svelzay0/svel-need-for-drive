@@ -21,7 +21,7 @@
         class="dialog__button_close dialog__button_text"
         @click="close"
       >
-      Вернуться
+        Вернуться
       </button>
     </span>
   </el-dialog>

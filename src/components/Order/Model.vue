@@ -82,14 +82,17 @@ export default {
       }
     }
   },
+  created() {
+    this.debouncedGetCars = debounce(this.loadMore, 200);
+  },
   mounted() {
     const element = document.querySelector('#infinite-list');
     element.addEventListener('scroll', e => {
       if(element.scrollTop + element.clientHeight >= element.scrollHeight - 1) {
-        debounce(this.loadMore(e), 500);
+        this.debouncedGetCars(e);
       }
     });
-    debounce(this.loadMore(), 500);
+    this.loadMore();
   },
   methods: {
     ...mapActions("model",
