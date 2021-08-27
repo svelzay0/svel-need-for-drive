@@ -7,7 +7,7 @@
     :modal="false"
   >
     <p class="dialog__text">Подтвердить заказ</p>
-    <span
+    <template
       slot="footer"
       class="dialog-footer"
     >
@@ -15,7 +15,7 @@
         class="dialog__button_confirm dialog__button_text"
         @click="confirm"
       >
-      Подтвердить
+        Подтвердить
       </button>
       <button
         class="dialog__button_close dialog__button_text"
@@ -23,7 +23,7 @@
       >
         Вернуться
       </button>
-    </span>
+    </template>
   </el-dialog>
 </template>
 
@@ -52,7 +52,7 @@ export default {
       if (this.isPriceComponentVisible) {
         this.invertPriceVisible();
       }
-      this.$store.dispatch("home/setDialogStatus", false);
+      this.close();
     }
   }
 };

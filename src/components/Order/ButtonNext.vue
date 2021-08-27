@@ -90,11 +90,11 @@ export default {
       ]),
       ...mapActions('total', ['clearConfirmedOrder']),
     stepOver() {
-      this.setToFalsePriceVisible()
-      this.toNextStep()
+      this.setToFalsePriceVisible();
+      this.toNextStep();
     },
     reset() {
-      this.clearConfirmedOrder()
+      this.clearConfirmedOrder();
     }
   },
 }

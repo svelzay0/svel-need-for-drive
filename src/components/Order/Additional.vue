@@ -197,7 +197,9 @@ export default {
           this.rateTotal = null;
           this.rentDuration = null;
         }
-        else return this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        else {
+          this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        }
       }
     },
     fillableRateAndRent (amount, unit, adds) {

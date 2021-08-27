@@ -13,8 +13,7 @@ export default {
     id: 1
   },
   getters: {
-    getCities(state)
-    {
+    getCities(state) {
       return state.cities;
     },
     getAllPoints(state) {

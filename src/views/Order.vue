@@ -53,9 +53,9 @@
     <i
       v-if="getWindowWidth < tablet"
       :class="{
-              'el-icon-shopping-cart-1 order__button_price': isPriceValid,
-              'el-icon-shopping-cart-1 order__button_price_error': !isPriceValid
-            }"
+        'el-icon-shopping-cart-1 order__button_price': isPriceValid,
+        'el-icon-shopping-cart-1 order__button_price_error': !isPriceValid
+      }"
       @click="showPrice"
     />
     <el-dialog
