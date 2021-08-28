@@ -66,7 +66,11 @@ export default {
         "getCar",
         "getOffset"
       ]),
-    ...mapGetters("home", ["loading"]),
+    ...mapGetters("home", 
+      [
+        "currentStep",
+        "loading"
+      ]),
     filteredCars() {
       if (this.radioSelected === "Все модели") {
         return this.getCars;
@@ -86,6 +90,7 @@ export default {
     this.debouncedGetCars = debounce(this.loadMore, 200);
   },
   mounted() {
+    this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } });
     const element = this.$refs.infinite;
     element.addEventListener('scroll', e => {
       if(element.scrollTop + element.clientHeight >= element.scrollHeight - 1) {

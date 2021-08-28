@@ -88,11 +88,15 @@ export default {
     }
   },
   computed: {
+    ...mapGetters("home", ["currentStep"]),
     ...mapGetters("total",
       [
         "getOrder",
         "getConfirmedOrder"
       ])
+  },
+  mounted () {
+    this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } });
   },
   methods: {
     getImgPath(order) {

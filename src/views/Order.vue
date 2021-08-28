@@ -126,7 +126,13 @@ export default {
     },
     getAdditionalStatus(newVal) {
       this.setStepStatus(newVal)
-    }
+    },
+    getConfirmedOrder(newVal) {
+      if (newVal) {
+        this.setCurrentStep(newVal.id)
+        this.$router.push({ name: 'Order', params: { stepName: newVal.id } })
+      }  
+    },
   },
   mounted() {
     this.fetchOrderStatus()
@@ -144,6 +150,7 @@ export default {
     ...mapActions('total', ['fetchOrderStatus']),
     changeCurrentStep(step) {
       this.setCurrentStep(step)
+      this.$router.push({ name: 'Order', params: { stepName: step.url } })
     },
     closeModal() {
       this.invertPriceVisible();

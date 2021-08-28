@@ -37,6 +37,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'ButtonNext',
   props: {
@@ -87,6 +88,7 @@ export default {
       [
         'toNextStep',
         'setToFalsePriceVisible',
+        'destroyIdUrl'
       ]),
       ...mapActions('total', ['clearConfirmedOrder']),
     stepOver() {
@@ -95,6 +97,8 @@ export default {
     },
     reset() {
       this.clearConfirmedOrder();
+      this.destroyIdUrl();
+      this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } })
     }
   },
 }

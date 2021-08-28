@@ -12,7 +12,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/order',
+    path: '/order/:stepName?',
     name: 'Order',
     component: Order
   }

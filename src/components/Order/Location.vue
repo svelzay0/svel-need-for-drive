@@ -81,7 +81,14 @@ export default {
         "getCity",
         "getPoint"
       ]),
-    ...mapGetters("home", ["isMapReady"]),
+    ...mapGetters("home", 
+      [
+        "currentStep",
+        "isMapReady"
+      ]),
+  },
+  mounted() {
+    this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } })
   },
   watch: {
     getPoint: function (value) {

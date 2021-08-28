@@ -12,8 +12,8 @@
         <p class="home__text_gray">
           Поминутная аренда авто твоего города
         </p>
-        <router-link class="home__button" :to="{name: 'Order'}">
-          Забронировать
+        <router-link class="home__button" :to="{ name: 'Order' }">
+          {{ title }}
         </router-link>
       </main>
       <footer class="home__footer">
@@ -30,11 +30,18 @@
 
 <script>
 import HeaderMenu from '@/components/HeaderMenu.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'HomePage',
   components: {
     HeaderMenu
+  },
+  computed: {
+    ...mapGetters('total', ['getConfirmedOrder']),
+    title () {
+      return this.getConfirmedOrder ? 'Посмотреть заказ' : 'Забронировать'
+    }
   }
 }
 </script>
