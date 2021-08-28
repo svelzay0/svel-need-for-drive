@@ -190,14 +190,16 @@ export default {
       return `${opt.name}, ${opt.price}₽`;
     },
     calculateRent() {
-      let adds = this.getOptions.reduce((sum, element) => element.optValue ? sum + element.price : sum, 0);
+      const adds = this.getOptions.reduce((sum, el) => el.optValue ? sum + el.price : sum, 0);
       if (this.dateFrom && this.dateTo) {
         const amount = this.dateTo - this.dateFrom;
         if (amount < 0) {
           this.rateTotal = null;
           this.rentDuration = null;
         }
-        else return this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        else {
+          this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        }
       }
     },
     fillableRateAndRent (amount, unit, adds) {

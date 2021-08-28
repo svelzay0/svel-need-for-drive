@@ -9,7 +9,7 @@
         />
       </el-radio-group>
     </div>
-    <div class="model__container" id="infinite-list">
+    <div class="model__container" ref="infinite">
       <div
         v-for="car in filteredCars"
         :key="car.id"
@@ -27,7 +27,7 @@
         </div>
         <img
           class="model__car_image"
-          :src="imgPath(car)"
+          :src="getImgPath(car)"
           alt=""
           @error="defaultImage"
         />
@@ -60,12 +60,12 @@ export default {
   },
   computed: {
     ...mapGetters("model",
-        [
-            "getCars",
-            "getCarCategory",
-            "getCar",
-            "getOffset"
-        ]),
+      [
+        "getCars",
+        "getCarCategory",
+        "getCar",
+        "getOffset"
+      ]),
     ...mapGetters("home", ["loading"]),
     filteredCars() {
       if (this.radioSelected === "Все модели") {
@@ -82,22 +82,25 @@ export default {
       }
     }
   },
+  created() {
+    this.debouncedGetCars = debounce(this.loadMore, 200);
+  },
   mounted() {
-    const element = document.querySelector('#infinite-list');
+    const element = this.$refs.infinite;
     element.addEventListener('scroll', e => {
       if(element.scrollTop + element.clientHeight >= element.scrollHeight - 1) {
-        debounce(this.loadMore(e), 500);
+        this.debouncedGetCars(e);
       }
     });
-    debounce(this.loadMore(), 500);
+    this.loadMore();
   },
   methods: {
     ...mapActions("model",
-        [
-          "fetchModels",
-          "setCar"
-        ]),
-    imgPath(car) {
+      [
+        "fetchModels",
+        "setCar"
+      ]),
+    getImgPath(car) {
       return `${process.env.VUE_APP_API_IMG}${car.thumbnail.path}`;
     },
     getCarName(car) {
@@ -113,7 +116,6 @@ export default {
       e.target.src = this.imgDefPath;
     },
     loadMore() {
-      console.log("Adding 10 more data results");
       this.fetchModels();
     }
   }

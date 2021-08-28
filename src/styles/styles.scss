@@ -548,8 +548,9 @@ p {
   z-index: 3000;
 }
 .order__additional {
-  grid-area: 1 / 1 / 22 / 33;
+  grid-area: 1 / 1 / 22 / 44;
   display: grid;
+  overflow: auto;
   grid-template-columns: repeat(32, 1fr);
   grid-template-rows: repeat(21, 1fr);
 }
@@ -692,15 +693,6 @@ p {
   color: $main-gray;
   margin-bottom: 8px;
 }
-#app .el-dialog__body {
-  min-width: 300px;
-}
-#app .el-dialog__header {
-  min-width: 300px;
-}
-#app .el-dialog__footer {
-  min-width: 300px;
-}
 #app .el-checkbox__input.is-checked+.el-checkbox__label {
   color: $main-black;
 }
@@ -719,7 +711,14 @@ p {
   top: -3px;
   left: 6px;
 }
+#app .el-radio {
+  cursor: $main-pointer;
+}
+#app .el-radio__inner {
+  cursor: $main-pointer;
+}
 #app .el-radio__inner::after {
+  cursor: $main-pointer;
   width: 7px;
   height: 7px;
 }
@@ -1261,6 +1260,32 @@ p {
     cursor: $main-pointer;
     z-index: 3000;
   }
+
+  .order__button_price_error {
+    font-size: 45px;
+    position: absolute;
+    color: $main-green;
+    bottom: 25px;
+    right: 50px;
+    cursor: $main-pointer;
+    z-index: 3000;
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    animation-duration: 1s;
+    -webkit-animation-name: blinker;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    -webkit-animation-duration: 1s;
+  }
+  @keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+  }
+  @-webkit-keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+  }
   #app .order__price {
     grid-area: 6 / 33 / 21 / 42;
     padding-right: 0;
@@ -1523,17 +1548,14 @@ p {
   #app .el-dialog__wrapper {
     padding-bottom: 50px;
   }
-  #app .el-dialog__footer {
-    min-width: 300px;
-  }
-  #app .el-dialog__footer {
-    min-width: 300px;
-  }
   .el-dialog--center {
     min-width: 35vh !important;
   }
   .order__steps {
     display: block;
     width: 300px;
+  }
+  .total__img {
+    padding-left: 20px;
   }
 }

@@ -25,13 +25,15 @@
         </p>
         <p class="total__option">
           <b>Доступна с </b>
-          <span class="total__option_text">{{ new Date(getConfirmedOrder.dateFrom).toLocaleString(arr, dateSettings) }}</span>
+          <span class="total__option_text">
+            {{ getDate(getConfirmedOrder.dateFrom.length > 4 ? getConfirmedOrder.dateFrom : getOrder.dateFrom, arr, dateSettings) }}
+          </span>
         </p>
       </div>
       <img
         class="total__img"
         alt=""
-        :src="imgPath(getConfirmedOrder)"
+        :src="getImgPath(getConfirmedOrder)"
         @error="defaultImage"
       />
     </div>
@@ -53,13 +55,15 @@
         </p>
         <p class="total__option">
           <b>Доступна с </b>
-          <span class="total__option_text">{{ new Date(getOrder.dateFrom).toLocaleString(arr, dateSettings) }}</span>
+          <span class="total__option_text">
+            {{ getDate(getOrder.dateFrom, arr, dateSettings) }}
+          </span>
         </p>
       </div>
       <img
         class="total__img"
         alt=""
-        :src="imgPath(getOrder)"
+        :src="getImgPath(getOrder)"
         @error="defaultImage"
       />
     </div>
@@ -91,11 +95,14 @@ export default {
       ])
   },
   methods: {
-    imgPath(order) {
+    getImgPath(order) {
       return `${process.env.VUE_APP_API_IMG}${order.carId.thumbnail.path}`;
     },
     defaultImage(e) {
       e.target.src = require('@/assets/default_car.jpg');
+    },
+    getDate(date, arr, settings) {
+      return new Date(date).toLocaleString(arr, settings)
     }
   }
 };
