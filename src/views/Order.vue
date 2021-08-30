@@ -4,7 +4,18 @@
       <header-menu />
     </div>
     <nav class="order__nav">
-      <div class="order__steps">
+      <div
+        v-if="getConfirmedOrder"
+        class="order__finish"
+      >
+        <p class="order__order__number">
+          Заказ номер {{ getConfirmedOrder.id }}
+        </p>
+      </div>
+      <div
+        v-else
+        class="order__steps"
+      >
         <div
           v-for="step in orderSteps"
           :key="step.id"
@@ -41,7 +52,10 @@
     <price v-show="getWindowWidth > tablet" />
     <i
       v-if="getWindowWidth < tablet"
-      class="el-icon-shopping-cart-1 order__button_price"
+      :class="{
+        'el-icon-shopping-cart-1 order__button_price': isPriceValid,
+        'el-icon-shopping-cart-1 order__button_price_error': !isPriceValid
+      }"
       @click="showPrice"
     />
     <el-dialog
@@ -53,8 +67,7 @@
         @close="closeModal"
       />
     </el-dialog>
-    <!-- шаблон подтвержения заказа, в разработке -->
-    <!-- <accept-modal /> -->
+    <accept-modal />
     <button-next
       v-if="getWindowWidth < tablet
       && !isPriceComponentVisible"
@@ -87,7 +100,12 @@ export default {
       ]),
     ...mapGetters('order', ['getLocationStatus']),
     ...mapGetters('model', ['getModelStatus']),
-    ...mapGetters('additional', ['getAdditionalStatus'])
+    ...mapGetters('additional',
+      [
+        'getAdditionalStatus',
+        'isPriceValid'
+      ]),
+    ...mapGetters('total', ['getConfirmedOrder']),
   },
   components: {
     HeaderMenu,
@@ -108,7 +126,13 @@ export default {
     },
     getAdditionalStatus(newVal) {
       this.setStepStatus(newVal)
-    }
+    },
+    getConfirmedOrder(newVal) {
+      if (newVal) {
+        this.setCurrentStep(newVal.id)
+        this.$router.push({ name: 'Order', params: { stepName: newVal.id } })
+      }  
+    },
   },
   mounted() {
     this.fetchOrderStatus()
@@ -126,6 +150,7 @@ export default {
     ...mapActions('total', ['fetchOrderStatus']),
     changeCurrentStep(step) {
       this.setCurrentStep(step)
+      this.$router.push({ name: 'Order', params: { stepName: step.url } })
     },
     closeModal() {
       this.invertPriceVisible();

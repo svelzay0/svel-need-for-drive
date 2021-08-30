@@ -49,6 +49,7 @@ export default {
       {
         id: 1,
         name: "Location",
+        url: "location",
         tag: "Местоположение",
         isActive: true,
         isDisabled: false,
@@ -57,6 +58,7 @@ export default {
       {
         id: 2,
         name: "Model",
+        url: "model",
         tag: "Модель",
         isActive: false,
         isDisabled: true,
@@ -65,6 +67,7 @@ export default {
       {
         id: 3,
         name: "Additional",
+        url: "additional",
         tag: "Дополнительно",
         isActive: false,
         isDisabled: true,
@@ -73,6 +76,7 @@ export default {
       {
         id: 4,
         name: "Total",
+        url: "total",
         tag: "Итого",
         isActive: false,
         isDisabled: true,
@@ -153,15 +157,20 @@ export default {
       state.isDialogVisible = payload;
     },
     setCurrentStep(state, payload) {
-      state.orderSteps.map(el => {
-        if (el.name === payload.name) {
-          el.isActive = true;
-          state.currentStep = el;
-        } else {
-          el.isActive = false;
-        }
-        return el;
-      });
+      if (typeof payload === 'string') {
+        state.currentStep.url = payload
+      }
+      else {
+        state.orderSteps.map(el => {
+          if (el.name === payload.name) {
+            el.isActive = true;
+            state.currentStep = el;
+          } else {
+            el.isActive = false;
+          }
+          return el;
+        });
+      }
     },
     setStepStatus(state, payload) {
       if (payload.isDisabled === false) {
@@ -204,6 +213,7 @@ export default {
             el.isActive = false;
           }
           return el;
+          
         });
       }
     },
@@ -212,6 +222,9 @@ export default {
     },
     setToFalsePriceVisible(state) {
       state.isPriceComponentVisible = false
+    },
+    destroyIdUrl(state) {
+      state.currentStep.url = 'total';
     }
   },
   actions: {
@@ -220,6 +233,9 @@ export default {
     },
     toNextStep({ commit }) {
       commit("toNextStep");
+    },
+    setDialogStatus({ commit }, payload) {
+      commit("setDialogStatus", payload);
     }
   }
 };

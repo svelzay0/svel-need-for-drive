@@ -12,14 +12,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/order',
+    path: '/order/:stepName?',
     name: 'Order',
     component: Order
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

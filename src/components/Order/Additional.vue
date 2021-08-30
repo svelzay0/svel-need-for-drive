@@ -98,6 +98,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("home", ["currentStep"]),
     ...mapGetters("model", ["getCar"]),
     ...mapGetters("additional",
       [
@@ -127,6 +128,7 @@ export default {
     }
   },
   mounted() {
+    this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } });
     this.setDefaultColor(this.defaultColor);
     this.fetchRates();
   },
@@ -197,7 +199,9 @@ export default {
           this.rateTotal = null;
           this.rentDuration = null;
         }
-        else return this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        else {
+          this.fillableRateAndRent(amount, this.getRate.rateTypeId.unit, adds);
+        }
       }
     },
     fillableRateAndRent (amount, unit, adds) {

@@ -9,7 +9,7 @@
         />
       </el-radio-group>
     </div>
-    <div class="model__container">
+    <div class="model__container" ref="infinite">
       <div
         v-for="car in filteredCars"
         :key="car.id"
@@ -27,7 +27,7 @@
         </div>
         <img
           class="model__car_image"
-          :src="imgPath(car)"
+          :src="getImgPath(car)"
           alt=""
           @error="defaultImage"
         />
@@ -42,6 +42,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Loader from "../Loader";
+import { debounce } from "debounce";
 
 export default {
   name: "Model",
@@ -52,17 +53,24 @@ export default {
       imgDefPath: require('@/assets/default_car.jpg'),
       currentCar: {
           id: null
-      }
+      },
+      nextItem: 1,
+      items: []
     };
   },
   computed: {
     ...mapGetters("model",
-        [
-            "getCars",
-            "getCarCategory",
-            "getCar"
-        ]),
-    ...mapGetters("home", ["loading"]),
+      [
+        "getCars",
+        "getCarCategory",
+        "getCar",
+        "getOffset"
+      ]),
+    ...mapGetters("home", 
+      [
+        "currentStep",
+        "loading"
+      ]),
     filteredCars() {
       if (this.radioSelected === "Все модели") {
         return this.getCars;
@@ -78,16 +86,26 @@ export default {
       }
     }
   },
+  created() {
+    this.debouncedGetCars = debounce(this.loadMore, 200);
+  },
   mounted() {
-    this.fetchModels();
+    this.$router.push({ name: 'Order', params: { stepName: this.currentStep.url } });
+    const element = this.$refs.infinite;
+    element.addEventListener('scroll', e => {
+      if(element.scrollTop + element.clientHeight >= element.scrollHeight - 1) {
+        this.debouncedGetCars(e);
+      }
+    });
+    this.loadMore();
   },
   methods: {
     ...mapActions("model",
-        [
-            "fetchModels",
-            "setCar"
-        ]),
-    imgPath(car) {
+      [
+        "fetchModels",
+        "setCar"
+      ]),
+    getImgPath(car) {
       return `${process.env.VUE_APP_API_IMG}${car.thumbnail.path}`;
     },
     getCarName(car) {
@@ -101,6 +119,9 @@ export default {
     },
     defaultImage(e) {
       e.target.src = this.imgDefPath;
+    },
+    loadMore() {
+      this.fetchModels();
     }
   }
 };
